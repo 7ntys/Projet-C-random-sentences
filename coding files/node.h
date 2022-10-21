@@ -1,0 +1,8 @@
+//
+// Created by Julien Le ber on 21/10/2022.
+//
+
+#ifndef PROJET_C_RANDOM_SENTENCES_NODE_H
+#define PROJET_C_RANDOM_SENTENCES_NODE_H
+
+#endif //PROJET_C_RANDOM_SENTENCES_NODE_H
