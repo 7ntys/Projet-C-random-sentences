@@ -6,6 +6,5 @@
 #include "node.h"
 int main(){
     printf("Hello world");
-    printf("Bonjour");
     return 0;
 };
