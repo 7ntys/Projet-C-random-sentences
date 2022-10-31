@@ -4,7 +4,12 @@
 #include <stdio.h>
 #include "bintree.h"
 #include "node.h"
+
 int main(){
-    printf("Hello world");
+    printf("It runs \n\n");
+    create_conjugaison_verbes();
+    create_conjugaison_noms();
+    create_conjugaison_adjectifs();
+    create_conjugaison_adverbe();
     return 0;
-};
+}
