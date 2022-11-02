@@ -5,6 +5,8 @@
 #include "bintree.h"
 #include "node.h"
 int main(){
-    printf("Hello world");
+    printf("Hello world \n");
+    int a = generate_tree();
+    //printf("%d LOLOLOLOJI",a); ok
     return 0;
-};
+}
