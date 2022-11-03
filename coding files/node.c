@@ -15,19 +15,16 @@ p_node createNode(){
 }
 p_node return_mot_node(p_node node , word type){
     //Return le node d'un mot aléatoirement à partir du node donné
-    printf("\nchar : %c\n",node->c);
     if(isempty(node,type) != 0){     //Le mot contient-il des formes fléchie ?
         int random = (rand() % node->sons); // determine l'index du child si le mot ne s'arrete pas la
         int stop = rand() % 4;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
         if(stop ==0){
-            printf("\n le mot s'arrete ");
             return node;    //le mot s'arrete la
         }
         else if(node->sons == 0) {   // le mot s'arrete la s'il n'a pas de sons (juste mesure de sécurité, normalement
             return node;        // c'est deja check avec isempty();
         }
         else{
-            printf("\n le mot continue");
             return return_mot_node(node->children[random],type); //On parcourt l'arbre par récursion
         }
     }
@@ -46,7 +43,6 @@ int isempty(p_node node , word type){
     //ce qui veux dire que l'on pourrait arreter le mot ici. Verifier pour chaque type
     //partie verb : return 1
     if(strcmp(type.lyric,"verbe") == 0){
-        printf("ce mot est un verbe");
         for (int i = 0; i <= 5; i++) {
             for(int j = 0 ; j<=5;j++){
                 if (node->verbe_flechie[i][j].lyric[0] != '\0') {     //Le premier caractere est le caractere d'arret.
@@ -59,7 +55,6 @@ int isempty(p_node node , word type){
     else if(strcmp(type.lyric,"nom") == 0) {
         for (int i = 0; i <= 1; i++) {
             if(node->nom_flechies[i].lyric[0] != '\0'){
-                printf("Ce %c contient des formes fléchies : %s", node->c,node->nom_flechies[i].lyric);
                 return 2;
             }
         }

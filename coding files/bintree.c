@@ -8,7 +8,6 @@ void generate_small_tree(t_tree mytree){
     //abatage	abatage	Nom:Mas+SG
     //abatant	abatant	Nom:Mas+SG
     //abbé	abbé	Nom:Mas+SG
-    printf("\nit runs \n");
     strcpy(mytree->type.lyric,"nom");
     mytree->root->c = '/';
     linker(mytree->root,7);
@@ -57,14 +56,13 @@ void generate_small_tree(t_tree mytree){
     strcpy(mytree->root->children[0]->children[0]->children[0]->children[0]->children[1]->children[0]->mot.lyric,"abatant");
     strcpy(mytree->root->children[0]->children[0]->children[0]->children[0]->children[1]->children[0]->nom_flechies[0].lyric,"abatant");
     strcpy(mytree->root->children[0]->children[0]->children[0]->children[0]->children[1]->children[0]->nom_flechies[1].lyric,"abatant");
-    printf("its ok");
 }
-t_tree generate_void_tree(){
+t_tree generate_void_tree(){    //Créer un tree vide
     t_tree mytree = (t_tree)malloc(sizeof (t_tree));
     mytree->root = createNode();
     return mytree;
 }
-p_node return_mot_tree(t_tree mytree){
+p_node return_mot_tree(t_tree mytree){  //inite la recursion a partir du tree
     if(mytree->root != NULL){
         return return_mot_node(mytree->root->children[0], mytree->type);
     }
@@ -72,7 +70,7 @@ p_node return_mot_tree(t_tree mytree){
         return NULL;
     }
 }
-void linker(p_node node ,int cpt){
+void linker(p_node node ,int cpt){  //fonction pour créer des nodes en chaine
     if(cpt==0){
         return;
     }
