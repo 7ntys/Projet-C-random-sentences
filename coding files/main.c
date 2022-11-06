@@ -5,6 +5,7 @@
 #include "bintree.h"
 #include "node.h"
 int main(){
+    srand(time(NULL));
     int a = generate_tree();
     return 0;
-}
+};

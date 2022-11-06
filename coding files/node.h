@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include "time.h"
 #include "string.h"
 #ifndef PROJET_C_RANDOM_SENTENCES_NODE_H
 #define PROJET_C_RANDOM_SENTENCES_NODE_H
@@ -25,8 +26,9 @@ struct node{
     word adjective_flechies[2][2];
     //Part adverb
     word adverbe_flechie;
-    int finite;
 };typedef struct node* p_node;
+p_node return_mot_node(p_node, word);   //Return un node qui constitue une fin de mot a partir d'un node
+int isempty(p_node,word);   //Verifie si le node contient des formes flechies ou non
 int add_on_tree(p_node node1, char line[]);
 int generate_tree();
 int children_existence(p_node node1,char a);
