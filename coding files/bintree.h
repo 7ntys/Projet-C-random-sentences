@@ -7,5 +7,7 @@
 struct tree{
     p_node root;
     int arbre_type;
-};
+}; typedef struct tree* t_tree;
 #endif //PROJET_C_RANDOM_SENTENCES_BINTREE_H
+
+t_tree generate_void_tree();

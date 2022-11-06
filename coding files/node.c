@@ -1,38 +1,46 @@
 //
-// Created by Julien Le ber on 21/10/2022.
+// Created by Mathieu on 21/10/2022.
 //
-#include <stdio.h>
 #include "node.h"
 #include "bintree.h"
-#define MAX_LINE_LENGTH 3000
+#define MAX_LINE_LENGTH 100
 
-int generate_tree(){
-    struct tree name_tree;
-    FILE    *dico = fopen("dico.txt", "r");
-    char    line[MAX_LINE_LENGTH];
+int generate_tree() {
+    t_tree name_tree = generate_void_tree();
+    FILE *dico = fopen("dico.txt", "r");
+    char line[MAX_LINE_LENGTH];
     char index[] = "Nom:";
-    if(dico == NULL) {
+    if (dico == NULL) {
         return 1;
     }
-
-    while(fgets(line, MAX_LINE_LENGTH, dico)){
-        if(compare_two_char(line,index) == 1){ //Catch all line with "Nom:"
-            //printf(line);
-            int random = add_on_tree(*name_tree.root,line);
+    fgets(line, MAX_LINE_LENGTH, dico);
+    int cpt = 0;
+    while (cpt <= 30000){
+        //printf("ca recommence encore et encore\n");
+        //printf(" LINE ETUDIE : %s",line);
+        if (compare_two_char(line, index) == 1) { //Catch all line with "Nom:"
+            //int index = 0;
+            //char letter;
+            //char mot[MAX_LINE_LENGTH];
+            //char temp = '\t';
+            //while((letter = fgetc(dico)) != temp){
+            //mot[index++] = letter;
+            //printf("Lettre : %c\n",letter);
+            //}
+            int random = add_on_tree(name_tree->root, line);
 
         }
+        fgets(line, MAX_LINE_LENGTH, dico);
+        cpt++;
 
     }
-
+    //printf("Fin generate tree");
     fclose(dico);
+    printf("CONNARD\n");
+    printf("TREE TEST : %s",name_tree->root->children[0]->mot.lyric);
     return 0;
+}
 
-};
-//
-//Nom:
-//    <
-//    ->
-//   *
 int compare_two_char(char char1[] ,char char2[] ){
     for(int a = 0; a < 150;a++){
         if(char1[a] == char2[0] && char1[a+1] == char2[1] && char1[a+2] == char2[2] && char1[a+3] == char2[3]) {
@@ -49,46 +57,46 @@ int compare_two_char(char char1[] ,char char2[] ){
 
     }
 
-
-int add_on_tree(struct node node1, char line[]){
-    int a = 0;
-    char temp = '\t';
-    while(line[a] != temp){
-        printf("%d",children_existence(node1,line[a]));
-        if(children_existence(node1,line[a]) == 0){
-            int index = searching_place(node1);
-            node1.children[index] = create_struct(a);
-            printf("%c",line[a]);
-        }
-        else{
-            node1 = *node1.children[children_existence(node1,a)];
-            printf("%c",line[a]);
-        }
-        a++;
-        
-
+int take_second_word(char line[]){
+    int cpt = 0;
+    while(line[cpt] != '\t'){
+        cpt++;
     }
+    return cpt+1;
+}
+
+int add_on_tree(p_node node1, char line[]){
+    //line = Mot sous forme d'array ["B,o,n,j,o,u,r"]
+    //appel de fonction pour décortiquer le mot présent dans line et le store dans un word
+    word mot;
+    mot = concatenate_mot(line);
+    //printf("-M-\n");
+    //appel de fonction par recursion qui créer en chaine les nodes du mot de word
+    node1 = chain_add(node1,mot,0);
+    //printf("fin add_on_tree\n");
     return 0;
 
 }
 
-int children_existence(struct node node1,char a){
-    for(int b=0;b <= 27;b++){
-        if(node1.children[b]->c == a){
-            printf("%c test",node1.children[b]->c);
-            printf("ijitrdtrdrtjij");
-            return b;
+int children_existence(p_node node1,char a){
+    for(int b=0;b < max; b++){
+        if (node1->children[b] != NULL) {
+            //printf("children non nul \n");
+            //printf("valeur de son children : %c\n",node1->children[b]->c);
+            if (node1->children[b]->c == a) {  // Si la valeur d'un de ses fils est égale à "a"
+                //printf("%d",b);
+                return b;  //Retourne son index
+            }
         }
     }
-    printf("ijijij");
-    return 0;
+    return -1;
 
 
 }
 
-int searching_place(struct node node1){
-    for(int b=0;b <= 27;b++){
-        if(node1.children[b] == NULL){
+int searching_place(p_node node1){
+    for(int b=0;b < max;b++){
+        if(node1->children[b] == NULL){
             return b;
         }
     }
@@ -97,7 +105,43 @@ int searching_place(struct node node1){
 }
 
 struct node * create_struct(char value){
-    struct node *node1;
+    p_node node1;
+    node1 = (p_node)malloc(sizeof(struct node));
     node1->c = value;
+    for (int  i = 0; i < max; i++){
+        node1->children[i]= (p_node)malloc(sizeof(struct node));
+        node1->children[i] = NULL;
+
+    }
     return node1;
+}
+
+p_node chain_add(p_node node, word mot,int index_mot){
+    if(mot.lyric[index_mot] == '\0'){
+        strcpy(node->mot.lyric,mot.lyric);
+        return node;
+    }
+    else{
+        //printf("%c\n",mot.lyric[index_mot]);
+        p_node temp = create_struct(mot.lyric[index_mot]);
+        //printf("%c\n",temp->c);
+        int index_node = children_existence(node,temp->c);
+        if(index_node == -1){
+            index_node = searching_place(node);
+        }
+        node->children[index_node] = temp;
+        return chain_add(temp,mot,index_mot+1);
+    }
+}
+word concatenate_mot(char line[]){
+    int index_mot = take_second_word(line);
+    word mot;
+    int i=0;
+    while(line[index_mot] != '\t'){
+        mot.lyric[i] =line[index_mot];
+        i++;
+        index_mot++;
+    }
+    mot.lyric[i] = '\0';
+    return mot;
 }
