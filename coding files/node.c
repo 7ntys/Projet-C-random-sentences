@@ -3,6 +3,7 @@
 //
 
 #include "node.h"
+//
 p_node createNode(){
     //Créer un node, alloue de la mémoire a lui et a tout ses children et set tout ses childrens à "NULL"
     //A delete une fois que mathieu a finit generate tree
