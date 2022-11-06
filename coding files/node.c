@@ -6,9 +6,9 @@
 p_node createNode(){
     //Créer un node, alloue de la mémoire a lui et a tout ses children et set tout ses childrens à "NULL"
     //A delete une fois que mathieu a finit generate tree
-    p_node node = (p_node) malloc((sizeof (p_node)));
+    p_node node = (p_node) malloc((sizeof(struct node)));
     for(int i =0;i<=max;i++){
-        node->children[i] = (p_node) malloc((sizeof (p_node)));
+        node->children[i] = (p_node) malloc((sizeof (struct node)));
         node->children[i] = NULL;
     }
     return node;
