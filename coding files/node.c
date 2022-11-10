@@ -6,20 +6,25 @@
 #include "bintree.h"
 #define MAX_LINE_LENGTH 100
 
-int generate_tree() {
+t_tree generate_tree(char index[]) {
     t_tree name_tree = generate_void_tree();
     FILE *dico = fopen("dico.txt", "r");
     char line[MAX_LINE_LENGTH];
-    char index[] = "Nom:";
     if (dico == NULL) {
-        return 1;
+        return name_tree;
     }
     fgets(line, MAX_LINE_LENGTH, dico);
     int cpt = 0;
-    while (cpt <= 30000){
+    int cpt2 = 0;
+    while (cpt <= 100000){
+        if(cpt2 >= 10000){
+            cpt2 = 0;
+            printf(" LINE ETUDIE : %s",line);
+        }
         //printf("ca recommence encore et encore\n");
         //printf(" LINE ETUDIE : %s",line);
         if (compare_two_char(line, index) == 1) { //Catch all line with "Nom:"
+            //printf(" LINE DE NOM : %s",line);
             //int index = 0;
             //char letter;
             //char mot[MAX_LINE_LENGTH];
@@ -33,16 +38,17 @@ int generate_tree() {
         }
         fgets(line, MAX_LINE_LENGTH, dico);
         cpt++;
+        cpt2++;
 
     }
     //printf("Fin generate tree");
     fclose(dico);
     printf("CONNARD\n");
-    printf("TREE TEST : %s",name_tree->root->children[0]->mot.lyric);
-    return 0;
+    printf("TREE TEST : %c \n",name_tree->root->children[3]->c);
+    return name_tree;
 }
 
-int compare_two_char(char char1[] ,char char2[] ){
+int compare_two_char(char char1[] ,char char2[]){
     for(int a = 0; a < 150;a++){
         if(char1[a] == char2[0] && char1[a+1] == char2[1] && char1[a+2] == char2[2] && char1[a+3] == char2[3]) {
             return 1;
@@ -54,8 +60,6 @@ int compare_two_char(char char1[] ,char char2[] ){
     //printf("Rien trouve");
     return 0;
 
-
-
     }
 
 int take_second_word(char line[]){
@@ -66,14 +70,30 @@ int take_second_word(char line[]){
     return cpt+1;
 }
 
+int take_third_word(char line[]){
+    int cpt = 0;
+    while(line[cpt] != '\t'){
+        cpt++;
+    }
+    cpt++;
+    while(line[cpt] != '\t'){
+        cpt++;
+    }
+    return cpt+1;
+}
+
 int add_on_tree(p_node node1, char line[]){
     //line = Mot sous forme d'array ["B,o,n,j,o,u,r"]
     //appel de fonction pour décortiquer le mot présent dans line et le store dans un word
+    word fleche;
     word mot;
-    mot = concatenate_mot(line);
-    //printf("-M-\n");
+    word typo;
+    fleche = concatenate_mot(line,0);
+    mot = concatenate_mot(line,1);
+    typo = concatenate_mot(line,2);
     //appel de fonction par recursion qui créer en chaine les nodes du mot de word
-    node1 = chain_add(node1,mot,0);
+    node1 = chain_add(node1,mot,0,typo,fleche);
+    //printf("Node 1 valeur : %c\n ",node1->c);
     //printf("fin add_on_tree\n");
     return 0;
 
@@ -91,7 +111,6 @@ int children_existence(p_node node1,char a){
         }
     }
     return -1;
-
 
 }
 
@@ -117,32 +136,59 @@ struct node * create_struct(char value){
     return node1;
 }
 
-p_node chain_add(p_node node, word mot,int index_mot){
-    if(mot.lyric[index_mot] == '\0'){
-        strcpy(node->mot.lyric,mot.lyric);
+p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche){
+    if(mot.lyric[index_mot] == '\0'){    //Si le mot arrive à la fin :
+        strcpy(node->mot.lyric,mot.lyric); // Mettre le mot en entier dans la structure de la node
+        if (compare_two_char(fleche.lyric,"+SG") == 1){
+            node->nom_flechies[0] = fleche;
+        }
+        else{
+            node->nom_flechies[1] = fleche;
+        }
         return node;
     }
     else{
         //printf("%c\n",mot.lyric[index_mot]);
-        p_node temp = create_struct(mot.lyric[index_mot]);
-        //printf("%c\n",temp->c);
-        int index_node = children_existence(node,temp->c);
-        if(index_node == -1){
-            index_node = searching_place(node);
+        //printf("Valeur du temp %c\n",temp->c);
+        int index_node = children_existence(node,mot.lyric[index_mot]); //
+        if(index_node == -1){  // Pas trouver de fils avec la lettre
+            p_node temp = create_struct(mot.lyric[index_mot]); // Créer une structure mot avec la valeur de la lettre
+            //printf("Pas trouver de fils \n");
+            index_node = searching_place(node); //chercher une place de libre dans l'array de ses fils
+            //printf("Trouver une place libre a l'index %d \n",index_node);
+            node->children[index_node] = temp; //mettre la structure
+            //printf("Node->children[index] = temp\n");
         }
-        node->children[index_node] = temp;
-        return chain_add(temp,mot,index_mot+1);
+        //printf("recursion : return de %c \n",node->children[index_node]->c);
+        return chain_add(node->children[index_node],mot,index_mot+1, typo,fleche);
     }
 }
-word concatenate_mot(char line[]){
-    int index_mot = take_second_word(line);
+word concatenate_mot(char line[],int x){  //recupere le mot à l'infinitif
+    int index_mot = 0;
+    if (x == 1) {
+        index_mot = take_second_word(line);
+    }
+    if(x == 2){
+        index_mot = take_third_word(line);
+    }
     word mot;
     int i=0;
-    while(line[index_mot] != '\t'){
-        mot.lyric[i] =line[index_mot];
-        i++;
-        index_mot++;
+    if (x != 2) {
+        while (line[index_mot] != '\t') {
+            mot.lyric[i] = line[index_mot];
+            i++;
+            index_mot++;
+        }
     }
+    else{
+        while (line[index_mot] != '\0') {
+            mot.lyric[i] = line[index_mot];
+            i++;
+            index_mot++;
+        }
+    }
+
+
     mot.lyric[i] = '\0';
     return mot;
 }
@@ -173,6 +219,7 @@ p_node return_mot_node(p_node node , word type){
         }
     }
 }
+
 int isempty(p_node node , word type){
     //objectif de cette fonction : verifier si le node a une quelconque forme flechie
     //ce qui veux dire que l'on pourrait arreter le mot ici. Verifier pour chaque type
