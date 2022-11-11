@@ -3,6 +3,7 @@
 //
 
 #include "bintree.h"
+#define MAX_LINE_LENGTH 100
 void generate_small_tree(t_tree mytree){
     //abat	abat	Nom:Mas+SG
     //abatage	abatage	Nom:Mas+SG
@@ -81,4 +82,44 @@ void linker(p_node node ,int cpt){  //fonction pour créer des nodes en chaine
         linker(node->children[0],cpt-1);
         return;
     }
+}
+int compare_two_char(char char1[] ,char char2[] ){
+    for(int a = 0; a < 150;a++){
+        if(char1[a] == char2[0] && char1[a+1] == char2[1] && char1[a+2] == char2[2] && char1[a+3] == char2[3]) {
+            return 1;
+        }
+        a++;
+    }
+    //printf("Rien trouve");
+    return 0;
+}
+
+void search_word(word word_searched,t_tree mytree){
+    FILE *dico = fopen("dico.txt", "r");
+    char line[MAX_LINE_LENGTH];
+    if (dico == NULL) {
+        return;
+    }
+    fgets(line, MAX_LINE_LENGTH, dico);
+    int cpt = 0;
+    word test;
+    while (cpt <= 30000){
+        if (compare_two_char(line,word_searched.lyric) == 1) {
+            printf("yes");
+            int index = 0;
+            char letter;
+            char mot[MAX_LINE_LENGTH];
+            char temp = '\t';
+            while((letter = fgetc(dico)) != temp){
+                mot[index++] = letter;
+                printf("Lettre : %c\n",letter);
+            }
+            strcpy(test.lyric,mot);
+        }
+        fgets(line, MAX_LINE_LENGTH, dico);
+        cpt++;
+    }
+    printf("Line =%s\n mot = %s\n",line,test.lyric);
+    //printf("Fin generate tree");
+    fclose(dico);
 }

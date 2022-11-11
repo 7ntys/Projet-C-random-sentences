@@ -33,6 +33,9 @@ int main(){
             array[4] +=1;
         }
     }
-    printf("\nabbe : %d ; abatage : %d ; abatant : %d ; abat : %d ; abbesse : %d", array[0],array[1],array[2],array[3],array[4]);
+    printf("\nabbe : %d ; abatage : %d ; abatant : %d ; abat : %d ; abbesse : %d\n", array[0],array[1],array[2],array[3],array[4]);
+    printf("On cherche : %s\n",arr[1].lyric);
+    search_word(arr[1],mytree);
+    printf("bizarre");
     return 0;
 };
