@@ -17,11 +17,12 @@ int main(){
     p_node adverbe = create_conjugaison_adverbe();
     p_determinants det = create_conjugaison_determinants();
     p_pronoms pro = create_conjugaison_pronoms();
-
-    for (int i=0; i<=12;i++){
+    int stop;
+    do{
         int option;
         printf("Choississez un modèle de conjugaison parmi les suivants : \n\nModèle n°1 : nom - adjectif - verbe - nom\n\nModèle n°2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModèle n°3 : verbe - adverbe - nom - adjectif \n\n");
-        scanf(" %d", &option);
+        option = ask_int(1, 3);
+        printf("\n\n");
         switch (option) {
             case 1: conjuguer_modele1(nom1,adjectif,verbe,nom2, det);
                 break;
@@ -32,7 +33,10 @@ int main(){
             default : printf("Ce choix n'existe pas.\n");
         }
         printf("\n\n");
-    }
+        printf("Do you want to continue ? \n\n0 - No\n1 - Yes\n\n");
+        stop = ask_int(0, 1);
+        printf("\n\n");
+    }while(stop!=0);
 
 
 

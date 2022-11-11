@@ -53,9 +53,10 @@ p_node create_conjugaison_noms2();
 p_node create_conjugaison_adjectifs();
 p_node create_conjugaison_adjectifs2();
 p_node create_conjugaison_adverbe();
-p_node create_conjugaison_determinants();
-p_node create_conjugaison_pronoms();
+p_determinants create_conjugaison_determinants();
+p_pronoms create_conjugaison_pronoms();
 void conjuguer_modele1(p_node ,p_node , p_node , p_node , p_determinants );
 void conjuguer_modele2(p_node ,p_node , p_node , p_node , p_node , p_determinants );
 void conjuguer_modele3(p_pronoms , p_node , p_node , p_node , p_node , p_determinants);
+int ask_int(int bot, int top);
 #endif //PROJET_C_RANDOM_SENTENCES_NODE_H

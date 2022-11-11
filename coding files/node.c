@@ -237,7 +237,7 @@ p_node create_conjugaison_adverbe(){
 
 // Création et remplissage de la structure contenant les déterminants
 
-p_node create_conjugaison_determinants(){
+p_determinants create_conjugaison_determinants(){
     p_mot mot1=create_mot();
     strcpy(mot1->mot,"le");
     p_mot mot2=create_mot();
@@ -260,7 +260,7 @@ p_node create_conjugaison_determinants(){
 }
 
 // création et remplissage de la structure contenant les pronoms personnels
-p_node create_conjugaison_pronoms(){
+p_pronoms create_conjugaison_pronoms(){
     p_mot mot1=create_mot();
     strcpy(mot1->mot,"je");
     p_mot mot2=create_mot();
@@ -443,7 +443,23 @@ void conjuguer_modele3(p_pronoms pronom, p_node verbe, p_node adverbe, p_node no
     }
 }
 
-
+// Fonction qui permet de rendre le menu meilleur
+// Verifie si le caractère rentré est un entier qui est compris entre les valeurs demandées
+// Verifie aussi si le caratère n'est pas une lettre ou un mot
+int ask_int(int bot, int top){
+    {
+        int var;
+        int entry, c;
+        do {
+            do{
+                printf("Give a number between %d and %d : ",bot,top);
+                entry= scanf("%d", &var);
+                while ((c = getchar()) != '\n' && c != EOF);
+            }while (entry != 1);
+        }while (var > top || (var < bot));
+        return var;
+    }
+}
 
 
 
