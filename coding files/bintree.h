@@ -18,4 +18,5 @@ struct list_tree{
 p_node return_mot_tree(t_tree); //Return un node qui constitue une fin de mot a partir du tree de maniere aleatoire
 t_tree generate_void_tree();
 l_tree generate_tree();
+void sample(t_tree,int);
 #endif //PROJET_C_RANDOM_SENTENCES_BINTREE_H

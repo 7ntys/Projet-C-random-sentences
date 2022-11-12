@@ -248,6 +248,8 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche){
         return node;
     }
     else{
+        //printf("%c\n",mot.lyric[index_mot]);
+        //printf("Valeur du temp %c\n",temp->c);
         int index_node = children_existence(node,mot.lyric[index_mot]); //
         if(index_node == -1){  // Pas trouver de fils avec la lettre
             node->sons++;
@@ -298,7 +300,7 @@ p_node return_mot_node(p_node node , word type){
     //Return le node d'un mot aléatoirement à partir du node donné
     if(isempty(node,type) != 0){     //Le mot contient-il des formes fléchie ?
         int random = (rand() % node->sons); // determine l'index du child si le mot ne s'arrete pas la
-        int stop = rand() % 4;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
+        int stop = rand() % 10;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
         if(stop ==0){
             return node;    //le mot s'arrete la
         }

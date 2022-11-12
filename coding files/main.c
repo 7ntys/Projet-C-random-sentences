@@ -10,7 +10,7 @@ int main(){
     //strcpy(a->type.lyric,"nom");
     p_node test;
     test = (p_node)malloc(sizeof (struct node));
-    test = return_mot_tree(all_tree->adj_tree);
-    printf("test essayer le mot là %s",test->mot.lyric);
+    test = return_mot_tree(all_tree->name_tree);
+    sample(all_tree->name_tree,500);
     return 0;
 };
