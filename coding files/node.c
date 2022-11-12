@@ -77,3 +77,18 @@ int isempty(p_node node , word type){
     }
     return 0;
 }
+p_node searching(p_node node,word seached_mot,int index_mot) {
+    if(seached_mot.lyric[index_mot] == '\0'){
+        printf("The word was found\n");
+        return node;
+    }
+    else{
+        for(int index=0;index<node->sons;index++){
+            if(node->children[index]->c == seached_mot.lyric[index_mot]){
+                return searching(node->children[index],seached_mot,index_mot+1);
+            }
+        }
+        printf("\nLe mot n'est pas dans le tree");
+        return NULL;
+    }
+}

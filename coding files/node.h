@@ -30,4 +30,5 @@ struct node{
 p_node createNode();    //Créer un node et alloue la mémoire (a delete apres)
 p_node return_mot_node(p_node, word);   //Return un node qui constitue une fin de mot a partir d'un node
 int isempty(p_node,word);   //Verifie si le node contient des formes flechies ou non
+p_node searching(p_node,word seached_mot,int);
 #endif //PROJET_C_RANDOM_SENTENCES_NODE_H
