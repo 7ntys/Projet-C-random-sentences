@@ -11,6 +11,7 @@
 #define max 27
 struct mot{
     char lyric[30];
+    int iteration;
 };typedef struct mot word;
 struct node{
     //commmun part

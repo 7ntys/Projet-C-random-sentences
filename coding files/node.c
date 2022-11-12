@@ -19,7 +19,6 @@ t_tree generate_tree(char index[]) {
     while (cpt <= 100000){
         if(cpt2 >= 10000){
             cpt2 = 0;
-            printf(" LINE ETUDIE : %s",line);
         }
         //printf("ca recommence encore et encore\n");
         //printf(" LINE ETUDIE : %s",line);
@@ -43,8 +42,6 @@ t_tree generate_tree(char index[]) {
     }
     //printf("Fin generate tree");
     fclose(dico);
-    printf("CONNARD\n");
-    printf("TREE TEST : %c \n",name_tree->root->children[3]->c);
     return name_tree;
 }
 
@@ -152,6 +149,7 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche){
         //printf("Valeur du temp %c\n",temp->c);
         int index_node = children_existence(node,mot.lyric[index_mot]); //
         if(index_node == -1){  // Pas trouver de fils avec la lettre
+            node->sons++;
             p_node temp = create_struct(mot.lyric[index_mot]); // Créer une structure mot avec la valeur de la lettre
             //printf("Pas trouver de fils \n");
             index_node = searching_place(node); //chercher une place de libre dans l'array de ses fils
@@ -198,7 +196,7 @@ p_node return_mot_node(p_node node , word type){
     //Return le node d'un mot aléatoirement à partir du node donné
     if(isempty(node,type) != 0){     //Le mot contient-il des formes fléchie ?
         int random = (rand() % node->sons); // determine l'index du child si le mot ne s'arrete pas la
-        int stop = rand() % 4;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
+        int stop = rand() % 10;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
         if(stop ==0){
             return node;    //le mot s'arrete la
         }
@@ -219,7 +217,6 @@ p_node return_mot_node(p_node node , word type){
         }
     }
 }
-
 int isempty(p_node node , word type){
     //objectif de cette fonction : verifier si le node a une quelconque forme flechie
     //ce qui veux dire que l'on pourrait arreter le mot ici. Verifier pour chaque type
