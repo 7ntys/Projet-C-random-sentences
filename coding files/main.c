@@ -6,13 +6,11 @@
 #include "node.h"
 int main(){
     srand(time(NULL));
-    t_tree a = generate_tree("Nom:");
-    strcpy(a->type.lyric,"nom");
+    l_tree all_tree = generate_tree();
+    //strcpy(a->type.lyric,"nom");
     p_node test;
     test = (p_node)malloc(sizeof (struct node));
-    printf("JJJ");
-    test = return_mot_tree(a);
-    printf("okokok");
-    printf("test essayer le mot là %c",test->c);
+    test = return_mot_tree(all_tree->adj_tree);
+    printf("test essayer le mot là %s",test->mot.lyric);
     return 0;
 };

@@ -19,7 +19,7 @@ struct node{
     struct node* children[max];
     int sons;
     //Part Verb
-    word verbe_flechie[6][6];
+    word verbe_flechie[11][6];
     //Part nom
     word nom_flechies[2];
     int gender;

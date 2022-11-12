@@ -6,12 +6,17 @@
 #include "bintree.h"
 #define MAX_LINE_LENGTH 100
 
-t_tree generate_tree(char index[]) {
-    t_tree name_tree = generate_void_tree();
+l_tree generate_tree() {
+    l_tree all_tree;
+    all_tree->name_tree = generate_void_tree();
+    all_tree->adj_tree = generate_void_tree();
+    all_tree->verbe_tree = generate_void_tree();
+    all_tree->adv_tree = generate_void_tree();
+    printf("SI CA PASSE LE PROGRAMME EST FINI");
     FILE *dico = fopen("dico.txt", "r");
     char line[MAX_LINE_LENGTH];
     if (dico == NULL) {
-        return name_tree;
+        return all_tree;
     }
     fgets(line, MAX_LINE_LENGTH, dico);
     int cpt = 0;
@@ -23,7 +28,7 @@ t_tree generate_tree(char index[]) {
         }
         //printf("ca recommence encore et encore\n");
         //printf(" LINE ETUDIE : %s",line);
-        if (compare_two_char(line, index) == 1) { //Catch all line with "Nom:"
+        if (compare_two_char(line,"Nom:") == 1) { //Catch all line with "Nom:"
             //printf(" LINE DE NOM : %s",line);
             //int index = 0;
             //char letter;
@@ -33,9 +38,20 @@ t_tree generate_tree(char index[]) {
             //mot[index++] = letter;
             //printf("Lettre : %c\n",letter);
             //}
-            int random = add_on_tree(name_tree->root, line);
+            int random = add_on_tree(all_tree->name_tree->root, line);
 
         }
+        if (compare_two_char(line,"Adj:") == 1) {
+            int random = add_on_tree(all_tree->adj_tree->root, line);
+            //printf(" LINE DE NOM ADJ : %s",line);
+        }
+        if (compare_two_char(line,"Ver:") == 1) {
+            int random = add_on_tree(all_tree->verbe_tree->root, line);
+        }
+        if (compare_two_char(line,"\tAdv") == 1) {
+            int random = add_on_tree(all_tree->adv_tree->root, line);
+        }
+
         fgets(line, MAX_LINE_LENGTH, dico);
         cpt++;
         cpt2++;
@@ -43,9 +59,8 @@ t_tree generate_tree(char index[]) {
     }
     //printf("Fin generate tree");
     fclose(dico);
-    printf("CONNARD\n");
-    printf("TREE TEST : %c \n",name_tree->root->children[3]->c);
-    return name_tree;
+    printf("TREE TEST : %c \n",all_tree->adj_tree->root->children[0]->children[0]->children[0]->nom_flechies[0]);
+    return all_tree;
 }
 
 int compare_two_char(char char1[] ,char char2[]){
@@ -139,19 +154,103 @@ struct node * create_struct(char value){
 p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche){
     if(mot.lyric[index_mot] == '\0'){    //Si le mot arrive à la fin :
         strcpy(node->mot.lyric,mot.lyric); // Mettre le mot en entier dans la structure de la node
-        if (compare_two_char(fleche.lyric,"+SG") == 1){
-            node->nom_flechies[0] = fleche;
+        printf("-------DEBUT---------\n");
+        printf("Fleche.Lyric %s \n",fleche.lyric);
+        printf("typo.Lyric %s \n",typo.lyric);
+        printf("Compare two char : %d \n",strstr(typo.lyric,"+SG"));
+        if(strstr(typo.lyric,":Nom")) {
+            if (strstr(typo.lyric, ":Mas") != 0) {
+                node->gender = 0; // HOMME
+
+            }
+            else if (strstr(typo.lyric, ":Fem") != 0) {
+                node->gender = 1; // FEMME
+            }
+            else{
+                node->gender = 2; // NON BINAIRE
+            }
+            if (strstr(typo.lyric, "+SG") != 0) {
+                printf("Mot au singulier de la FF : %s \n", fleche);
+                node->nom_flechies[0] = fleche;
+            } else {
+                printf("Mot au pluriel de la FF : %s \n", fleche);
+                node->nom_flechies[1] = fleche;
+            }
         }
-        else{
-            node->nom_flechies[1] = fleche;
+        if(strstr(typo.lyric,":Adj")) {
+            if (strstr(typo.lyric, ":Mas") != 0 || strstr(typo.lyric, ":InvGen") != 0 ) {
+                if (strstr(typo.lyric, "+SG") != 0) {
+                    node->adjective_flechies[0][0] = fleche; //Mas+SG
+                }
+                else{
+                    node->adjective_flechies[1][0] = fleche; // Mas+PL
+                }
+
+            }
+            else if (strstr(typo.lyric, ":Fem") != 0 || strstr(typo.lyric, ":InvGen") != 0 ) {
+                if (strstr(typo.lyric, "+SG") != 0) {
+                    node->adjective_flechies[0][1] = fleche; //Fem+SG
+
+                }
+                else{
+                    node->adjective_flechies[1][1] = fleche; //Fem+PL
+
+                }
+
+            }
+
         }
+        if(strstr(typo.lyric,"Ver:")) {
+            int temps;
+            if(strstr(typo.lyric,":Inf")) {temps = 0;}
+            else if(strstr(typo.lyric,":IPSim")) {temps = 1;}
+            else if(strstr(typo.lyric,":IImp"))  {temps = 2;}
+            else if(strstr(typo.lyric,":IPre"))  {temps = 3;}
+            else if(strstr(typo.lyric,":PPas"))  {temps = 4;}
+            else if(strstr(typo.lyric,":IFut"))  {temps = 5;}
+            else if(strstr(typo.lyric,":CPre"))  {temps = 6;}
+            else if(strstr(typo.lyric,":PPre"))  {temps = 7;}
+            else if(strstr(typo.lyric,"SImp"))   {temps = 8;}
+            else if(strstr(typo.lyric,":SPre"))  {temps = 9;}
+            else if(strstr(typo.lyric,":Imp"))   {temps = 10;}
+
+            if (strstr(typo.lyric, "+SG") != 0) {
+                if (strstr(typo.lyric, "+P1") != 0) {
+                    node->verbe_flechie[temps][0];
+                }
+                else if (strstr(typo.lyric, "+P2") != 0) {
+                    node->verbe_flechie[temps][1];
+                }
+                else if (strstr(typo.lyric, "+P3") != 0) {
+                    node->verbe_flechie[temps][2];
+                }
+            else{
+                if (strstr(typo.lyric, "+P1") != 0) {
+                    node->verbe_flechie[temps][3];
+                }
+                else if (strstr(typo.lyric, "+P2") != 0) {
+                    node->verbe_flechie[temps][4];
+                }
+                else if (strstr(typo.lyric, "+P3") != 0) {
+                    node->verbe_flechie[temps][5];
+                }
+
+            }
+
+            }
+
+
+
+
+
+        }
+        printf("-------FIN---------\n");
         return node;
     }
     else{
-        //printf("%c\n",mot.lyric[index_mot]);
-        //printf("Valeur du temp %c\n",temp->c);
         int index_node = children_existence(node,mot.lyric[index_mot]); //
         if(index_node == -1){  // Pas trouver de fils avec la lettre
+            node->sons++;
             p_node temp = create_struct(mot.lyric[index_mot]); // Créer une structure mot avec la valeur de la lettre
             //printf("Pas trouver de fils \n");
             index_node = searching_place(node); //chercher une place de libre dans l'array de ses fils
@@ -163,6 +262,7 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche){
         return chain_add(node->children[index_node],mot,index_mot+1, typo,fleche);
     }
 }
+
 word concatenate_mot(char line[],int x){  //recupere le mot à l'infinitif
     int index_mot = 0;
     if (x == 1) {
