@@ -32,10 +32,10 @@ int main(){
                 break;
             default : printf("Ce choix n'existe pas.\n");
         }
-        printf("\n\n");
+        printf("\n\n------------------------------------------------------------------------------\n\n");
         printf("Do you want to continue ? \n\n0 - No\n1 - Yes\n\n");
         stop = ask_int(0, 1);
-        printf("\n\n");
+        printf("\n\n------------------------------------------------------------------------------\n\n");
     }while(stop!=0);
 
 

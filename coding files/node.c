@@ -32,8 +32,8 @@ p_mot create_mot(){
     // Fonction qui permet de créer un mot et lui alloue de la mémoire
     p_mot nouv_mot=(p_mot) malloc((sizeof (p_mot)));
     for(int i =0;i<=30;i++) {
-        nouv_mot->mot[i] = (p_mot) malloc((sizeof(p_mot)));
-        nouv_mot->mot[i] = '\0';
+        nouv_mot->lyric[i] = (p_mot) malloc((sizeof(p_mot)));
+        nouv_mot->lyric[i] = '\0';
     }
     return nouv_mot;
 }
@@ -63,41 +63,41 @@ p_determinants create_determinants(){
 // Création en dur de verbes (à supprimer plus tard)
 p_node create_conjugaison_verbes(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"mange");
+    strcpy(mot1->lyric,"mange");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"manges");
+    strcpy(mot2->lyric,"manges");
     p_mot mot3=create_mot();
-    strcpy(mot3->mot,"mange");
+    strcpy(mot3->lyric,"mange");
     p_mot mot4=create_mot();
-    strcpy(mot4->mot,"mangeons");
+    strcpy(mot4->lyric,"mangeons");
     p_mot mot5=create_mot();
-    strcpy(mot5->mot,"mangez");
+    strcpy(mot5->lyric,"mangez");
     p_mot mot6=create_mot();
-    strcpy(mot6->mot,"mangent");
+    strcpy(mot6->lyric,"mangent");
     p_mot mot7=create_mot();
-    strcpy(mot7->mot,"mangeais");
+    strcpy(mot7->lyric,"mangeais");
     p_mot mot8=create_mot();
-    strcpy(mot8->mot,"mangeais");
+    strcpy(mot8->lyric,"mangeais");
     p_mot mot9=create_mot();
-    strcpy(mot9->mot,"mangeait");
+    strcpy(mot9->lyric,"mangeait");
     p_mot mot10=create_mot();
-    strcpy(mot10->mot,"mangions");
+    strcpy(mot10->lyric,"mangions");
     p_mot mot11=create_mot();
-    strcpy(mot11->mot,"mangiez");
+    strcpy(mot11->lyric,"mangiez");
     p_mot mot12=create_mot();
-    strcpy(mot12->mot,"mangeaient");
+    strcpy(mot12->lyric,"mangeaient");
     p_mot mot13=create_mot();
-    strcpy(mot13->mot,"mange");
+    strcpy(mot13->lyric,"mange");
     p_mot mot14=create_mot();
-    strcpy(mot14->mot,"manges");
+    strcpy(mot14->lyric,"manges");
     p_mot mot15=create_mot();
-    strcpy(mot15->mot,"mange");
+    strcpy(mot15->lyric,"mange");
     p_mot mot16=create_mot();
-    strcpy(mot16->mot,"mangions");
+    strcpy(mot16->lyric,"mangions");
     p_mot mot17=create_mot();
-    strcpy(mot17->mot,"mangiez");
+    strcpy(mot17->lyric,"mangiez");
     p_mot mot18=create_mot();
-    strcpy(mot18->mot,"mangent");
+    strcpy(mot18->lyric,"mangent");
 
     p_node verbe = createNode();
     verbe->verbe_flechie[0][0]=mot1 , verbe->verbe_flechie[0][1]=mot2,verbe->verbe_flechie[0][2]=mot3,
@@ -114,41 +114,41 @@ p_node create_conjugaison_verbes(){
 
 p_node create_conjugaison_verbes2(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"oublie");
+    strcpy(mot1->lyric,"oublie");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"oublies");
+    strcpy(mot2->lyric,"oublies");
     p_mot mot3=create_mot();
-    strcpy(mot3->mot,"oublie");
+    strcpy(mot3->lyric,"oublie");
     p_mot mot4=create_mot();
-    strcpy(mot4->mot,"oublions");
+    strcpy(mot4->lyric,"oublions");
     p_mot mot5=create_mot();
-    strcpy(mot5->mot,"oubliez");
+    strcpy(mot5->lyric,"oubliez");
     p_mot mot6=create_mot();
-    strcpy(mot6->mot,"oublient");
+    strcpy(mot6->lyric,"oublient");
     p_mot mot7=create_mot();
-    strcpy(mot7->mot,"oubliais");
+    strcpy(mot7->lyric,"oubliais");
     p_mot mot8=create_mot();
-    strcpy(mot8->mot,"oubliais");
+    strcpy(mot8->lyric,"oubliais");
     p_mot mot9=create_mot();
-    strcpy(mot9->mot,"oubliait");
+    strcpy(mot9->lyric,"oubliait");
     p_mot mot10=create_mot();
-    strcpy(mot10->mot,"oubliions");
+    strcpy(mot10->lyric,"oubliions");
     p_mot mot11=create_mot();
-    strcpy(mot11->mot,"oubliiez");
+    strcpy(mot11->lyric,"oubliiez");
     p_mot mot12=create_mot();
-    strcpy(mot12->mot,"oubliaient");
+    strcpy(mot12->lyric,"oubliaient");
     p_mot mot13=create_mot();
-    strcpy(mot13->mot,"oublie");
+    strcpy(mot13->lyric,"oublie");
     p_mot mot14=create_mot();
-    strcpy(mot14->mot,"oublies");
+    strcpy(mot14->lyric,"oublies");
     p_mot mot15=create_mot();
-    strcpy(mot15->mot,"oublie");
+    strcpy(mot15->lyric,"oublie");
     p_mot mot16=create_mot();
-    strcpy(mot16->mot,"oubliions");
+    strcpy(mot16->lyric,"oubliions");
     p_mot mot17=create_mot();
-    strcpy(mot17->mot,"oubliiez");
+    strcpy(mot17->lyric,"oubliiez");
     p_mot mot18=create_mot();
-    strcpy(mot18->mot,"oubliient");
+    strcpy(mot18->lyric,"oubliient");
 
     p_node verbe = createNode();
     verbe->verbe_flechie[0][0]=mot1 , verbe->verbe_flechie[0][1]=mot2,verbe->verbe_flechie[0][2]=mot3,
@@ -165,24 +165,24 @@ p_node create_conjugaison_verbes2(){
 // création de noms (à supprimer plus tard)
 p_node create_conjugaison_noms(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"ours");
+    strcpy(mot1->lyric,"ours");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"ours");
+    strcpy(mot2->lyric,"ours");
 
     p_node nom = createNode();
-    nom->gender=1;
+    nom->gender=0;
     nom->nom_flechies[0]=mot1; nom->nom_flechies[1]=mot2;
 
     return nom;
 }
 p_node create_conjugaison_noms2(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"banane");
+    strcpy(mot1->lyric,"banane");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"bananes");
+    strcpy(mot2->lyric,"bananes");
 
     p_node nom1 = createNode();
-    nom1->gender=2;
+    nom1->gender=1;
     nom1->nom_flechies[0]=mot1; nom1->nom_flechies[1]=mot2;
 
     return nom1;
@@ -191,13 +191,13 @@ p_node create_conjugaison_noms2(){
 // création d'adjectifs (à supprimer plus tard)
 p_node create_conjugaison_adjectifs(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"petit");
+    strcpy(mot1->lyric,"petit");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"petits");
+    strcpy(mot2->lyric,"petits");
     p_mot mot3=create_mot();
-    strcpy(mot3->mot,"petite");
+    strcpy(mot3->lyric,"petite");
     p_mot mot4=create_mot();
-    strcpy(mot4->mot,"petites");
+    strcpy(mot4->lyric,"petites");
 
     p_node adjectif = createNode();
     adjectif->adjective_flechies[0][0]=mot1 , adjectif->adjective_flechies[0][1]=mot2,
@@ -208,13 +208,13 @@ p_node create_conjugaison_adjectifs(){
 
 p_node create_conjugaison_adjectifs2(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"joli");
+    strcpy(mot1->lyric,"joli");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"jolis");
+    strcpy(mot2->lyric,"jolis");
     p_mot mot3=create_mot();
-    strcpy(mot3->mot,"jolie");
+    strcpy(mot3->lyric,"jolie");
     p_mot mot4=create_mot();
-    strcpy(mot4->mot,"jolies");
+    strcpy(mot4->lyric,"jolies");
 
     p_node adjectif = createNode();
     adjectif->adjective_flechies[0][0]=mot1 , adjectif->adjective_flechies[0][1]=mot2,
@@ -227,10 +227,10 @@ p_node create_conjugaison_adjectifs2(){
 
 p_node create_conjugaison_adverbe(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"absolument");
+    strcpy(mot1->lyric,"absolument");
 
     p_node adverbe = createNode();
-    adverbe->adverbe_flechies[0]=mot1;
+    adverbe->adverbe_flechies=mot1;
 
     return adverbe;
 }
@@ -239,17 +239,17 @@ p_node create_conjugaison_adverbe(){
 
 p_determinants create_conjugaison_determinants(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"le");
+    strcpy(mot1->lyric,"le");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"la");
+    strcpy(mot2->lyric,"la");
     p_mot mot3=create_mot();
-    strcpy(mot3->mot,"les");
+    strcpy(mot3->lyric,"les");
     p_mot mot4=create_mot();
-    strcpy(mot4->mot,"un");
+    strcpy(mot4->lyric,"un");
     p_mot mot5=create_mot();
-    strcpy(mot5->mot,"une");
+    strcpy(mot5->lyric,"une");
     p_mot mot6=create_mot();
-    strcpy(mot6->mot,"des");
+    strcpy(mot6->lyric,"des");
 
     p_determinants det = create_determinants();
     det->determinants[0][0]=mot1 , det->determinants[0][1]=mot2,det->determinants[0][2]=mot3,
@@ -262,17 +262,17 @@ p_determinants create_conjugaison_determinants(){
 // création et remplissage de la structure contenant les pronoms personnels
 p_pronoms create_conjugaison_pronoms(){
     p_mot mot1=create_mot();
-    strcpy(mot1->mot,"je");
+    strcpy(mot1->lyric,"je");
     p_mot mot2=create_mot();
-    strcpy(mot2->mot,"tu");
+    strcpy(mot2->lyric,"tu");
     p_mot mot3=create_mot();
-    strcpy(mot3->mot,"il");
+    strcpy(mot3->lyric,"il");
     p_mot mot4=create_mot();
-    strcpy(mot4->mot,"nous");
+    strcpy(mot4->lyric,"nous");
     p_mot mot5=create_mot();
-    strcpy(mot5->mot,"vous");
+    strcpy(mot5->lyric,"vous");
     p_mot mot6=create_mot();
-    strcpy(mot6->mot,"ils");
+    strcpy(mot6->lyric,"ils");
 
     p_pronoms pronom = create_pronoms();
     pronom->pronoms[0]=mot1 , pronom->pronoms[1]=mot2,pronom->pronoms[2]=mot3,
@@ -291,22 +291,22 @@ void conjuguer_modele1(p_node nom1,p_node adjectif, p_node verbe, p_node nom2, p
     if (a==1){
         printf("%s ",det->determinants[b][2]);
     }
-    else if ((nom1->nom_flechies[a]->mot[0]=='a' || nom1->nom_flechies[a]->mot[0]=='e' || nom1->nom_flechies[a]->mot[0]=='i' || nom1->nom_flechies[a]->mot[0]=='o' || nom1->nom_flechies[a]->mot[0]=='u' || nom1->nom_flechies[a]->mot[0]=='y') && (b==0)){
+    else if ((nom1->nom_flechies[a]->lyric[0]=='a' || nom1->nom_flechies[a]->lyric[0]=='e' || nom1->nom_flechies[a]->lyric[0]=='i' || nom1->nom_flechies[a]->lyric[0]=='o' || nom1->nom_flechies[a]->lyric[0]=='u' || nom1->nom_flechies[a]->lyric[0]=='y') && (b==0)){
         printf("l'"); // condition pour savoir si l'emploi de l'apostrophe est nécéssaire
     }
     else{
-        printf("%s ",det->determinants[b][(nom1->gender)-1]); // Conjugaison et affichage du déterminant en fonction du nom choisi
+        printf("%s ",det->determinants[b][(nom1->gender)]); // Conjugaison et affichage du déterminant en fonction du nom choisi
     }
 
     printf ("%s ", nom1->nom_flechies[a]); // Affichage du nom aléatoire choisi
 
 
     if (a==0){
-        printf("%s ", adjectif->adjective_flechies[(nom1->gender)-1][a]); // conjugaison en genre et en nombre de l'adjectif
+        printf("%s ", adjectif->adjective_flechies[(nom1->gender)][a]); // conjugaison en genre et en nombre de l'adjectif
     }
 
     else {
-        printf("%s ", adjectif->adjective_flechies[(nom1->gender)-1][a]); // conjugaison en genre et en nombre de l'adjectif
+        printf("%s ", adjectif->adjective_flechies[(nom1->gender)][a]); // conjugaison en genre et en nombre de l'adjectif
 
     }
 
@@ -326,11 +326,11 @@ void conjuguer_modele1(p_node nom1,p_node adjectif, p_node verbe, p_node nom2, p
     if (d==1){
         printf("%s ",det->determinants[e][2]);
     }
-    else if ((nom2->nom_flechies[d]->mot[0]=='a' || nom2->nom_flechies[d]->mot[0]=='e' || nom2->nom_flechies[d]->mot[0]=='i' || nom2->nom_flechies[d]->mot[0]=='o' || nom2->nom_flechies[d]->mot[0]=='u' || nom2->nom_flechies[d]->mot[0]=='y') && (e==0)){
+    else if ((nom2->nom_flechies[d]->lyric[0]=='a' || nom2->nom_flechies[d]->lyric[0]=='e' || nom2->nom_flechies[d]->lyric[0]=='i' || nom2->nom_flechies[d]->lyric[0]=='o' || nom2->nom_flechies[d]->lyric[0]=='u' || nom2->nom_flechies[d]->lyric[0]=='y') && (e==0)){
         printf("l'");
     }
     else{
-        printf("%s ",det->determinants[e][(nom2->gender)-1]);
+        printf("%s ",det->determinants[e][(nom2->gender)]);
     }
 
     printf ("%s ", nom2->nom_flechies[d]);
@@ -345,11 +345,11 @@ void conjuguer_modele2(p_node nom1,p_node verbe1, p_node verbe2, p_node nom2, p_
     if (a==1){
         printf("%s ",det->determinants[b][2]);
     }
-    else if ((nom1->nom_flechies[a]->mot[0]=='a' || nom1->nom_flechies[a]->mot[0]=='e' || nom1->nom_flechies[a]->mot[0]=='i' || nom1->nom_flechies[a]->mot[0]=='o' || nom1->nom_flechies[a]->mot[0]=='u' || nom1->nom_flechies[a]->mot[0]=='y') && (b==0)){
+    else if ((nom1->nom_flechies[a]->lyric[0]=='a' || nom1->nom_flechies[a]->lyric[0]=='e' || nom1->nom_flechies[a]->lyric[0]=='i' || nom1->nom_flechies[a]->lyric[0]=='o' || nom1->nom_flechies[a]->lyric[0]=='u' || nom1->nom_flechies[a]->lyric[0]=='y') && (b==0)){
         printf("l'"); // condition permettant de savoir si l'emploi d'une apostrophe est nécéssaire
     }
     else{
-        printf("%s ",det->determinants[b][(nom1->gender)-1]);
+        printf("%s ",det->determinants[b][(nom1->gender)]);
     }
 
     printf ("%s qui ", nom1->nom_flechies[a]);
@@ -379,21 +379,21 @@ void conjuguer_modele2(p_node nom1,p_node verbe1, p_node verbe2, p_node nom2, p_
     if (e==1){
         printf("%s ",det->determinants[f][2]);
     }
-    else if ((nom2->nom_flechies[e]->mot[0]=='a' || nom2->nom_flechies[e]->mot[0]=='e' || nom2->nom_flechies[e]->mot[0]=='i' || nom2->nom_flechies[e]->mot[0]=='o' || nom2->nom_flechies[e]->mot[0]=='u' || nom2->nom_flechies[e]->mot[0]=='y') && (f==0)){
+    else if ((nom2->nom_flechies[e]->lyric[0]=='a' || nom2->nom_flechies[e]->lyric[0]=='e' || nom2->nom_flechies[e]->lyric[0]=='i' || nom2->nom_flechies[e]->lyric[0]=='o' || nom2->nom_flechies[e]->lyric[0]=='u' || nom2->nom_flechies[e]->lyric[0]=='y') && (f==0)){
         printf("l'");
     }
     else{
-        printf("%s ",det->determinants[f][(nom2->gender)-1]);
+        printf("%s ",det->determinants[f][(nom2->gender)]);
     }
 
     printf ("%s ", nom2->nom_flechies[e]);
 
     if (e==0){
-        printf("%s ", adjectif->adjective_flechies[(nom2->gender)-1][e]); // conjugaison de l'adjectif en genre et en nombre
+        printf("%s ", adjectif->adjective_flechies[(nom2->gender)][e]); // conjugaison de l'adjectif en genre et en nombre
     }
 
     else {
-        printf("%s ", adjectif->adjective_flechies[(nom2->gender)-1][e]); // conjugaison de ladjectif en genre et en nombre
+        printf("%s ", adjectif->adjective_flechies[(nom2->gender)][e]); // conjugaison de ladjectif en genre et en nombre
 
     }
 
@@ -406,7 +406,7 @@ void conjuguer_modele3(p_pronoms pronom, p_node verbe, p_node adverbe, p_node no
     srand(time(NULL));
     int b =rand()%3; // nombre aléatoire permettant de choisir un temps pour le verbe à conjuguer
     if (a==0){
-        if (verbe->verbe_flechie[b][a]->mot[0]=='a' || verbe->verbe_flechie[b][a]->mot[0]=='e' || verbe->verbe_flechie[b][a]->mot[0]=='i' || verbe->verbe_flechie[b][a]->mot[0]=='o' || verbe->verbe_flechie[b][a]->mot[0]=='u' || verbe->verbe_flechie[b][a]->mot[0]=='y'){
+        if (verbe->verbe_flechie[b][a]->lyric[0]=='a' || verbe->verbe_flechie[b][a]->lyric[0]=='e' || verbe->verbe_flechie[b][a]->lyric[0]=='i' || verbe->verbe_flechie[b][a]->lyric[0]=='o' || verbe->verbe_flechie[b][a]->lyric[0]=='u' || verbe->verbe_flechie[b][a]->lyric[0]=='y'){
             printf("j'%s ",verbe->verbe_flechie[b][a]); // condition pour savoir si l'emploi de l'apostrophe est nécessaire
         }
         else {
@@ -417,7 +417,7 @@ void conjuguer_modele3(p_pronoms pronom, p_node verbe, p_node adverbe, p_node no
         printf("%s %s ",pronom->pronoms[a],verbe->verbe_flechie[b][a]); // affichage du pronom personnel et du verbe
     }
 
-    printf("%s ", adverbe->adverbe_flechies[0]); // affichage de l'adverbe
+    printf("%s ", adverbe->adverbe_flechies); // affichage de l'adverbe
 
     srand(time(NULL));
     int c = rand()%2;// nombre aléatoire pour savoir si le nom sera au singulier ou au pluriel
@@ -425,20 +425,20 @@ void conjuguer_modele3(p_pronoms pronom, p_node verbe, p_node adverbe, p_node no
     if (c==1){
         printf("%s ",det->determinants[d][2]);
     }
-    else if ((nom1->nom_flechies[c]->mot[0]=='a' || nom1->nom_flechies[c]->mot[0]=='e' || nom1->nom_flechies[c]->mot[0]=='i' || nom1->nom_flechies[c]->mot[0]=='o' || nom1->nom_flechies[c]->mot[0]=='u' || nom1->nom_flechies[c]->mot[0]=='y') && (d==0)){
+    else if ((nom1->nom_flechies[c]->lyric[0]=='a' || nom1->nom_flechies[c]->lyric[0]=='e' || nom1->nom_flechies[c]->lyric[0]=='i' || nom1->nom_flechies[c]->lyric[0]=='o' || nom1->nom_flechies[c]->lyric[0]=='u' || nom1->nom_flechies[c]->lyric[0]=='y') && (d==0)){
         printf("l'"); // condition pour savoir si l'emploi de l'apostrophe est nécessaire
     }
     else{
-        printf("%s ",det->determinants[d][(nom1->gender)-1]);
+        printf("%s ",det->determinants[d][(nom1->gender)]);
     }
 
     printf ("%s ", nom1->nom_flechies[c]);
     if (c==0){
-        printf("%s ", adjectif->adjective_flechies[(nom1->gender)-1][c]);
+        printf("%s ", adjectif->adjective_flechies[(nom1->gender)][c]);
     }
 
     else {
-        printf("%s ", adjectif->adjective_flechies[(nom1->gender)-1][c]);
+        printf("%s ", adjectif->adjective_flechies[(nom1->gender)][c]);
 
     }
 }
@@ -452,7 +452,7 @@ int ask_int(int bot, int top){
         int entry, c;
         do {
             do{
-                printf("Give a number between %d and %d : ",bot,top);
+                printf("Donnez un nombre entre %d et %d : ",bot,top);
                 entry= scanf("%d", &var);
                 while ((c = getchar()) != '\n' && c != EOF);
             }while (entry != 1);

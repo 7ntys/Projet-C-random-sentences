@@ -9,7 +9,7 @@
 #define PROJET_C_RANDOM_SENTENCES_NODE_H
 #define max 27
 struct mot{
-    char mot[30];
+    char lyric[30];
 };
 typedef struct mot* p_mot;
 
@@ -37,7 +37,7 @@ struct node{
     //Part adjective
     p_mot adjective_flechies[2][2];
     //Part adverb
-    p_mot adverbe_flechies[1];
+    p_mot adverbe_flechies;
     int finite;
 };
 typedef struct node* p_node;
