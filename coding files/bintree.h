@@ -6,5 +6,17 @@
 #define PROJET_C_RANDOM_SENTENCES_BINTREE_H
 struct tree{
     p_node root;
-};
+    word type;
+};typedef struct tree* t_tree;
+
+struct list_tree{
+    t_tree name_tree;
+    t_tree adj_tree;
+    t_tree verbe_tree;
+    t_tree adv_tree;
+};typedef struct list_tree* l_tree;
+p_node return_mot_tree(t_tree); //Return un node qui constitue une fin de mot a partir du tree de maniere aleatoire
+t_tree generate_void_tree();
+l_tree generate_tree();
+void sample(t_tree,int);
 #endif //PROJET_C_RANDOM_SENTENCES_BINTREE_H
