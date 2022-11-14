@@ -16,5 +16,7 @@ int main(){
     sample(all_tree->name_tree,500);
     sample(all_tree->adj_tree,500);
     sample(all_tree->verbe_tree,500);
+    free(all_tree);
+    free(test);
     return 0;
 };
