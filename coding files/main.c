@@ -10,21 +10,15 @@ int main(){
     srand(time(NULL));
     l_tree all_tree = (l_tree)malloc(sizeof (struct list_tree));
     all_tree = generate_tree();
+    strcpy(all_tree->adj_tree->type.lyric,"adjectif");
     //strcpy(a->type.lyric,"nom");
     p_node test;
     test = (p_node)malloc(sizeof (struct node));
     test = return_mot_tree(all_tree->adv_tree);
-    sample(all_tree->adv_tree,500);
-    sample(all_tree->name_tree,500);
+    //sample(all_tree->adv_tree,500);
+    //sample(all_tree->name_tree,500);
     sample(all_tree->adj_tree,500);
-    sample(all_tree->verbe_tree,500);
-    p_node verbe = create_conjugaison_verbes();
-    p_node verbe2 = create_conjugaison_verbes2();
-    p_node nom1 = create_conjugaison_noms();
-    p_node nom2 = create_conjugaison_noms2();
-    p_node adjectif = create_conjugaison_adjectifs();
-    p_node adjectif2 = create_conjugaison_adjectifs2();
-    p_node adverbe = create_conjugaison_adverbe();
+    //sample(all_tree->verbe_tree,500);
     p_determinants det = create_conjugaison_determinants();
     p_pronoms pro = create_conjugaison_pronoms();
     int stop;
@@ -34,11 +28,11 @@ int main(){
         option = ask_int(1, 3);
         printf("\n\n");
         switch (option) {
-            case 1: conjuguer_modele1(nom1,adjectif,verbe,nom2, det);
+            case 1: conjuguer_modele1(all_tree, det);
                 break;
-            case 2: conjuguer_modele2(nom2, verbe2, verbe, nom1, adjectif, det);
+            case 2: conjuguer_modele2(all_tree, det);
                 break;
-            case 3: conjuguer_modele3(pro, verbe2, adverbe, nom1, adjectif2, det);
+            case 3: conjuguer_modele3(pro, all_tree, det);
                 break;
             default : printf("Ce choix n'existe pas.\n");
         }
