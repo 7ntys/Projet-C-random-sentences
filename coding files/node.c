@@ -252,6 +252,7 @@ struct node * create_struct(char value){
 
     }
     node1->adverbe_flechie = (word*)malloc(sizeof(struct mot));
+    fill_flechies(node1);
 
 
 
@@ -292,7 +293,7 @@ word* multiple_typo(word typo){
 }
 
 p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, word liste_typo[]){
-    fill_flechies(node);
+    //fill_flechies(node);
     if(mot.lyric[index_mot] == '\0'){    //Si le mot arrive à la fin :
         strcpy(node->mot.lyric,mot.lyric); // Mettre le mot en entier dans la structure de la node
 
@@ -477,9 +478,9 @@ int isempty(p_node node , word type){
     //ce qui veux dire que l'on pourrait arreter le mot ici. Verifier pour chaque type
     //partie verb : return 1
     if(strcmp(type.lyric,"verbe") == 0){
-        for (int i = 0; i <= 11; i++) {
+        for (int i = 0; i <= 10; i++) {
             for(int j = 0 ; j<=5;j++){
-                if (node->verbe_flechie[i][j]->lyric[0] != '\0') {     //Le premier caractere est le caractere d'arret.
+                if (strcmp(node->verbe_flechie[i][j]->lyric,"none")!=0) {     //Le premier caractere est le caractere d'arret.
                     return 1;   //S'il ya une forme flechie return 1 : le verbe peut etre finit
                 }
             }
@@ -488,19 +489,18 @@ int isempty(p_node node , word type){
     //partie nom : return 2
     else if(strcmp(type.lyric,"nom") == 0) {
         for (int i = 0; i <= 1; i++) {
-            if(node->nom_flechies[i]->lyric[0] != '\0'){
+            if(strcmp(node->nom_flechies[i]->lyric,"none") != 0){
                 return 2;
             }
         }
     }
     //partie adjectif : return 3
     else if(strcmp(type.lyric,"adjectif") == 0){
-        printf("p\n");
         for (int i = 0; i <= 1; i++) {
             for(int j = 0 ; j<=1;j++){
-                printf("MOT FINI MAIS AVANT: %s \n",node->adjective_flechies[i][j]->lyric);
+                //printf("MOT FINI MAIS AVANT: %s \n",node->adjective_flechies[i][j]->lyric);
                 if (strcmp(node->adjective_flechies[i][j]->lyric,"none") != 0) {     //Le premier caractere est le caractere d'arret.
-                    printf("MOT FINI : %s \n",node->adjective_flechies[i][j]->lyric);
+                    //printf("MOT FINI : %s \n",node->adjective_flechies[i][j]->lyric);
                     return 3;   //S'il ya une forme flechie return 3 : l'adjectif peut etre finit
                 }
             }
@@ -508,7 +508,7 @@ int isempty(p_node node , word type){
     }
     //partie adverbe : return 4
     else if(strcmp(type.lyric,"adverbe") == 0) {
-        if (node->adverbe_flechie->lyric[0] != '\0') {     //Le premier caractere est le caractere d'arret.
+        if (strcmp(node->adverbe_flechie->lyric,"none") !=0) {     //Le premier caractere est le caractere d'arret.
             return 4;   //S'il ya une forme flechie return 2 : le mot peut etre finit
         }
     }
