@@ -292,6 +292,7 @@ word* multiple_typo(word typo){
 }
 
 p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, word liste_typo[]){
+    fill_flechies(node);
     if(mot.lyric[index_mot] == '\0'){    //Si le mot arrive à la fin :
         strcpy(node->mot.lyric,mot.lyric); // Mettre le mot en entier dans la structure de la node
 
@@ -314,7 +315,7 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
                 node->nom_flechies[1] = &fleche;
             }
         }
-        if(strstr(typo.lyric,":Adj")) {
+        else if(strstr(typo.lyric,":Adj")) {
             if (strstr(typo.lyric, ":Mas") != 0 || strstr(typo.lyric, ":InvGen") != 0 ) {
                 if (strstr(typo.lyric, "+SG") != 0) {
                     strcpy(node->adjective_flechies[0][0]->lyric,fleche.lyric); //Mas+SG
@@ -337,7 +338,7 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
             }
 
         }
-        if(strstr(typo.lyric,"Ver:")) {
+        else if(strstr(typo.lyric,"Ver:")) {
             //printf("ça passe ici \n");
             //printf("Liste typo de 0 : %s \n",liste_typo[0].lyric);
             int i = 0;
@@ -383,7 +384,6 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
         }
     }
     else{
-        fill_flechies(node);
 
         int index_node = children_existence(node,mot.lyric[index_mot]); //
         if(index_node == -1){  // Pas trouver de fils avec la lettre
@@ -401,6 +401,7 @@ void fill_flechies(p_node node){
     for (int i = 0;i <= 1;i++){
         strcpy(node->nom_flechies[i]->lyric,"none");
         for (int j = 0;j <= 1;j++){
+
             strcpy(node->adjective_flechies[i][j]->lyric,"none");
         }
     }
