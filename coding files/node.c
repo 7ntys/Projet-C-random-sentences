@@ -62,7 +62,6 @@ word** create_conjugaison_determinants(){
 
 // création et remplissage de la structure contenant les pronoms personnels
 word* create_conjugaison_pronoms(){
-    printf("salut");
     word *arr = (word*)malloc(6*sizeof (word));
 
     strcpy(arr[0].lyric,"je");
@@ -77,7 +76,6 @@ word* create_conjugaison_pronoms(){
 
     strcpy(arr[5].lyric,"ils");
 
-    printf("et là");
     return arr;
 
 }
@@ -387,6 +385,9 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
             }
             //printf("-------FIN---------\n");
         }
+        else if(strstr(typo.lyric,"Adv") != NULL){
+           strcpy(node->adverbe_flechie->lyric,mot.lyric);
+        }
         return node;
     }
     else{
@@ -461,7 +462,7 @@ p_node return_mot_node(p_node node , word type){
     //Return le node d'un mot aléatoirement à partir du node donné
     if(isempty(node,type) != 0){     //Le mot contient-il des formes fléchie ?
         int random = (rand() % node->sons); // determine l'index du child si le mot ne s'arrete pas la
-        int stop = rand() % 10;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
+        int stop = rand() % 3;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
         if(stop ==0){
             return node;    //le mot s'arrete la
         }

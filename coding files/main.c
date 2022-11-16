@@ -22,18 +22,16 @@ int main(){
     //sample(all_tree->name_tree,500);
     //sample(all_tree->adj_tree,50);
     //sample(all_tree->verbe_tree,50);
-    printf("Fin");
     word** det = create_conjugaison_determinants();
-    printf("p_determinants det = %s \n;",det[0][0].lyric);
     word* pro = create_conjugaison_pronoms();
-    printf("p_pronoms pro = %s \n;",pro[0].lyric);
-    printf("xxx\n");
+
+    printf("\n\n------------------------------------------------------------------------------\n\n");
     int stop;
     do{
         int option;
-        option = 1;
-        printf("Choississez un modèle de conjugaison parmi les suivants : \n\nModèle n°1 : nom - adjectif - verbe - nom\n\nModèle n°2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModèle n°3 : verbe - adverbe - nom - adjectif \n\n");
-        //option = ask_int(1, 3);
+
+        printf("Choississez un modele de conjugaison parmi les suivants : \n\nModele numero 1 : nom - adjectif - verbe - nom\n\nModele numero2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModele numero 3 : verbe - adverbe - nom - adjectif \n\n");
+        option = ask_int(1, 3);
         printf("\n\n");
         switch (option) {
             case 1:conjuguer_modele1(all_tree, det);
@@ -47,7 +45,7 @@ int main(){
         printf("\n\n------------------------------------------------------------------------------\n\n");
         //conjuguer_modele2(all_tree, det);
         //conjuguer_modele3(pro, all_tree, det);
-        printf("Do you want to continue ? \n\n0 - No\n1 - Yes\n\n");
+        printf("Voulez vous continuer ? \n\n0 - Non\n1 - Oui\n\n");
         stop = ask_int(0, 1);
         printf("\n\n------------------------------------------------------------------------------\n\n");
     }while(stop!=0);
