@@ -3,6 +3,18 @@
 //
 #include "bintree.h"
 
+int monkey(word* mot){
+    if (strcmp(mot->lyric,"none") != 0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+
+
+
 t_tree generate_void_tree(){    //Créer un tree vide
     t_tree mytree = (t_tree)malloc(sizeof (struct tree));
     mytree->root = create_struct('/');
@@ -13,6 +25,7 @@ p_node return_mot_tree(t_tree mytree){  //inite la recursion a partir du tree
         return return_mot_node(mytree->root, mytree->type);
     }
     else{
+        printf("Tree vide");
         return NULL;
     }
 }
@@ -44,39 +57,57 @@ void sample(t_tree mytree,int nbr){
         }
     }
 }
-
-void conjuguer_modele1(l_tree all_tree, p_determinants det){
-    printf("TEST");
+void conjuguer_modele1(l_tree all_tree, word** det){
     // Cette fonction à pour objectif de conjuguer en fonction du premier modèle
     srand(time(NULL));
-    printf("BALISE 2");
     p_node nom1= (p_node)malloc(sizeof(struct node));
+
     nom1 = return_mot_tree(all_tree->name_tree);
+
     p_node nom2= (p_node)malloc(sizeof(struct node));
     nom2 = return_mot_tree(all_tree->name_tree);
-    printf("BALISE 3");
-    p_node verbe= (p_node)malloc(sizeof(struct node));
-    verbe = return_mot_tree(all_tree->verbe_tree);
-    printf("BALISE 4");
+    printf("nom1 = %s %s %s\n;",nom1->mot.lyric,nom1->nom_flechies[0]->lyric,nom1->nom_flechies[1]->lyric);
+    printf("nom2 = %s %s %s\n;",nom2->mot.lyric,nom2->nom_flechies[0]->lyric,nom2->nom_flechies[1]->lyric);
+    //Creer une fonction qui renvoie un adjectif aleatoire du tree
     p_node adjectif= (p_node)malloc(sizeof(struct node));
-    printf("BALISE 5");
     adjectif = return_mot_tree(all_tree->adj_tree);
-    printf("OKOKOK");
+
+    //Creer une fonction qui renvoie un verbe aleatoire du tree
+    p_node verbe = (p_node)malloc(sizeof(struct node));
+    verbe = return_mot_tree(all_tree->verbe_tree);
+    for (int i = 0;i < 2;i++){
+        for(int j = 0;j < 2;j++) {
+            printf("adj = %s %s \n;",adjectif->mot.lyric,adjectif->adjective_flechies[i][j]->lyric);
+
+            //printf("verbe = %s %s \n;", verbe->mot.lyric, verbe->verbe_flechie[i][j]->lyric);
+        }
+    }
+
     int a = rand()%2; // nombre aléatoire permettant de savoir si le nom va être au singulier ou au pluriel
-    int b =rand()%2; // nombre aléatoire pour savoir si le déterminant va être défini ou indéfini
+    while(strcmp(nom1->nom_flechies[a]->lyric,"none" ) == 0){
+        nom1 = return_mot_tree(all_tree->name_tree);
+    }
+    int b = rand()%2; // nombre aléatoire pour savoir si le déterminant va être défini ou indéfini
     if (a==1){
-        printf("%s ",det->determinants[b][2]);
+        printf("%s ",det[b][2].lyric);
     }
     else if ((nom1->nom_flechies[a]->lyric[0]=='a' || nom1->nom_flechies[a]->lyric[0]=='e' || nom1->nom_flechies[a]->lyric[0]=='i' || nom1->nom_flechies[a]->lyric[0]=='o' || nom1->nom_flechies[a]->lyric[0]=='u' || nom1->nom_flechies[a]->lyric[0]=='y') && (b==0)){
         printf("l'"); // condition pour savoir si l'emploi de l'apostrophe est nécéssaire
     }
     else{
-        printf("%s ",det->determinants[b][(nom1->gender)]); // Conjugaison et affichage du déterminant en fonction du nom choisi
+        printf("%s ",det[b][(nom1->gender)].lyric); // Conjugaison et affichage du déterminant en fonction du nom choisi
     }
 
-    printf ("%s ", nom1->nom_flechies[a]); // Affichage du nom aléatoire choisi
+    if (monkey(nom1->nom_flechies[a])) {
+        printf("%s ", nom1->nom_flechies[a]); // Affichage du nom aléatoire choisi
+    }
+    else{
+        printf("%s ",nom1->mot.lyric);
+    }
 
-
+    while(strcmp(adjectif->adjective_flechies[nom1->gender][a]->lyric,"none" ) == 0){
+        adjectif = return_mot_tree(all_tree->adj_tree);
+    }
     if (a==0){
         printf("%s ", adjectif->adjective_flechies[(nom1->gender)][a]); // conjugaison en genre et en nombre de l'adjectif
     }
@@ -87,7 +118,18 @@ void conjuguer_modele1(l_tree all_tree, p_determinants det){
     }
 
     srand(time(NULL));
-    int c = rand()%3; // nombre aléatoire permettant de choisir un temps aléatoire pour le verbe à conjuguer
+    int index =0;
+    if(a==0){
+        index =2;
+    }
+    else{
+        index = 5;
+    }
+    int c = rand()%11; // nombre aléatoire permettant de choisir un temps aléatoire pour le verbe à conjuguer
+    while (strcmp(verbe->verbe_flechie[c][index]->lyric,"none") == 0){
+        printf("\nverbe = %s %s %s \n",verbe->mot.lyric ,verbe->verbe_flechie[c][2], verbe->verbe_flechie[c][5]->lyric);
+        verbe = return_mot_tree(all_tree->verbe_tree);
+    }
     if (a==1){
         printf("%s ", verbe->verbe_flechie[c][5]); // conjugaison du verbe choisi
     }
@@ -97,23 +139,30 @@ void conjuguer_modele1(l_tree all_tree, p_determinants det){
 
     srand(time(NULL));
     int d = rand()%2; // nombre aléatoire permettant de savoir si le nom va être au singulier ou au pluriel
+    while(strcmp(nom2->nom_flechies[d]->lyric,"none" ) == 0){
+        nom2= return_mot_tree(all_tree->name_tree);
+    }
     srand(time(NULL));
     int e =rand()%2; // nombre aléatoire permettant de savoir si le déterminant sera défini ou indéfini
     if (d==1){
-        printf("%s ",det->determinants[e][2]);
+        printf("%s ",det[e][2].lyric);
     }
     else if ((nom2->nom_flechies[d]->lyric[0]=='a' || nom2->nom_flechies[d]->lyric[0]=='e' || nom2->nom_flechies[d]->lyric[0]=='i' || nom2->nom_flechies[d]->lyric[0]=='o' || nom2->nom_flechies[d]->lyric[0]=='u' || nom2->nom_flechies[d]->lyric[0]=='y') && (e==0)){
         printf("l'");
     }
     else{
-        printf("%s ",det->determinants[e][(nom2->gender)]);
+        printf("%s ",det[e][(nom2->gender)].lyric);
     }
 
     printf ("%s ", nom2->nom_flechies[d]);
+    free(nom1);
+    free(nom2);
+    free(adjectif);
+    free(verbe);
 
 }
 
-void conjuguer_modele2(l_tree all_tree, p_determinants det){
+void conjuguer_modele2(l_tree all_tree, word** det){
     // Cette fonction permet de conjuguer en fonction du deuxième modèle
     srand(time(NULL));
     p_node nom1 = return_mot_tree(all_tree->name_tree);
@@ -124,13 +173,13 @@ void conjuguer_modele2(l_tree all_tree, p_determinants det){
     int a = rand()%2; // nombre aléatoire permettant de savoir si le nom va être au singulier ou au pluriel
     int b =rand()%2; // nombre aléatoire permettant de savoir si le déterminant sera défini ou indéfini
     if (a==1){
-        printf("%s ",det->determinants[b][2]);
+        printf("%s ",det[b][2].lyric);
     }
     else if ((nom1->nom_flechies[a]->lyric[0]=='a' || nom1->nom_flechies[a]->lyric[0]=='e' || nom1->nom_flechies[a]->lyric[0]=='i' || nom1->nom_flechies[a]->lyric[0]=='o' || nom1->nom_flechies[a]->lyric[0]=='u' || nom1->nom_flechies[a]->lyric[0]=='y') && (b==0)){
         printf("l'"); // condition permettant de savoir si l'emploi d'une apostrophe est nécéssaire
     }
     else{
-        printf("%s ",det->determinants[b][(nom1->gender)]);
+        printf("%s ",det[b][(nom1->gender)].lyric);
     }
 
     printf ("%s qui ", nom1->nom_flechies[a]);
@@ -158,13 +207,13 @@ void conjuguer_modele2(l_tree all_tree, p_determinants det){
     srand(time(NULL));
     int f =rand()%2; // nombre aléatoire pour savoir si le déterminant sera défini ou non
     if (e==1){
-        printf("%s ",det->determinants[f][2]);
+        printf("%s ",det[f][2].lyric);
     }
     else if ((nom2->nom_flechies[e]->lyric[0]=='a' || nom2->nom_flechies[e]->lyric[0]=='e' || nom2->nom_flechies[e]->lyric[0]=='i' || nom2->nom_flechies[e]->lyric[0]=='o' || nom2->nom_flechies[e]->lyric[0]=='u' || nom2->nom_flechies[e]->lyric[0]=='y') && (f==0)){
         printf("l'");
     }
     else{
-        printf("%s ",det->determinants[f][(nom2->gender)]);
+        printf("%s ",det[f][(nom2->gender)].lyric);
     }
 
     printf ("%s ", nom2->nom_flechies[e]);
@@ -180,7 +229,7 @@ void conjuguer_modele2(l_tree all_tree, p_determinants det){
 
 }
 
-void conjuguer_modele3(p_pronoms pronom, l_tree all_tree, p_determinants det){
+void conjuguer_modele3(word* pronom, l_tree all_tree, word** det){
     // Cette fonction permer de conjuguer en fonction du troisième modèle
     srand(time(NULL));
     p_node nom1 = return_mot_tree(all_tree->name_tree);
@@ -195,11 +244,11 @@ void conjuguer_modele3(p_pronoms pronom, l_tree all_tree, p_determinants det){
             printf("j'%s ",verbe->verbe_flechie[b][a]); // condition pour savoir si l'emploi de l'apostrophe est nécessaire
         }
         else {
-            printf("%s %s ",pronom[a],verbe->verbe_flechie[b][a]); // affichage du pronom personnel et du verbe
+            printf("%s %s ",pronom[a].lyric,verbe->verbe_flechie[b][a]); // affichage du pronom personnel et du verbe
         }
     }
     else {
-        printf("%s %s ",pronom->pronoms[a],verbe->verbe_flechie[b][a]); // affichage du pronom personnel et du verbe
+        printf("%s %s ",pronom[a].lyric,verbe->verbe_flechie[b][a]); // affichage du pronom personnel et du verbe
     }
 
     printf("%s ", adverbe->adverbe_flechie); // affichage de l'adverbe
@@ -208,13 +257,13 @@ void conjuguer_modele3(p_pronoms pronom, l_tree all_tree, p_determinants det){
     int c = rand()%2;// nombre aléatoire pour savoir si le nom sera au singulier ou au pluriel
     int d =rand()%2;// nombre aléatoire pour savoir si le déterminant sera défini ou non
     if (c==1){
-        printf("%s ",det->determinants[d][2]);
+        printf("%s ",det[d][2].lyric);
     }
     else if ((nom1->nom_flechies[c]->lyric[0]=='a' || nom1->nom_flechies[c]->lyric[0]=='e' || nom1->nom_flechies[c]->lyric[0]=='i' || nom1->nom_flechies[c]->lyric[0]=='o' || nom1->nom_flechies[c]->lyric[0]=='u' || nom1->nom_flechies[c]->lyric[0]=='y') && (d==0)){
         printf("l'"); // condition pour savoir si l'emploi de l'apostrophe est nécessaire
     }
     else{
-        printf("%s ",det->determinants[d][(nom1->gender)]);
+        printf("%s ",det[d][(nom1->gender)].lyric);
     }
 
     printf ("%s ", nom1->nom_flechies[c]);

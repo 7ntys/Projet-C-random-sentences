@@ -1,4 +1,4 @@
-//
+
 // Created by Julien Le ber on 21/10/2022.
 //
 #include <stdio.h>
@@ -17,22 +17,26 @@ int main(){
     //strcpy(a->type.lyric,"nom");
     p_node test;
     test = (p_node)malloc(sizeof (struct node));
-    test = return_mot_tree(all_tree->adv_tree);
-    sample(all_tree->adv_tree,500);
-    sample(all_tree->name_tree,500);
-    sample(all_tree->adj_tree,500);
-    sample(all_tree->verbe_tree,500);
+    test = return_mot_tree(all_tree->verbe_tree);
+    //sample(all_tree->adv_tree,500);
+    //sample(all_tree->name_tree,500);
+    //sample(all_tree->adj_tree,50);
+    //sample(all_tree->verbe_tree,50);
     printf("Fin");
-    p_determinants det = create_conjugaison_determinants();
-    p_pronoms pro = create_conjugaison_pronoms();
+    word** det = create_conjugaison_determinants();
+    printf("p_determinants det = %s \n;",det[0][0].lyric);
+    word* pro = create_conjugaison_pronoms();
+    printf("p_pronoms pro = %s \n;",pro[0].lyric);
+    printf("xxx\n");
     int stop;
     do{
         int option;
+        option = 1;
         printf("Choississez un modèle de conjugaison parmi les suivants : \n\nModèle n°1 : nom - adjectif - verbe - nom\n\nModèle n°2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModèle n°3 : verbe - adverbe - nom - adjectif \n\n");
-        option = ask_int(1, 3);
+        //option = ask_int(1, 3);
         printf("\n\n");
         switch (option) {
-            case 1: conjuguer_modele1(all_tree, det);
+            case 1:conjuguer_modele1(all_tree, det);
                 break;
             case 2: conjuguer_modele2(all_tree, det);
                 break;
@@ -41,6 +45,8 @@ int main(){
             default : printf("Ce choix n'existe pas.\n");
         }
         printf("\n\n------------------------------------------------------------------------------\n\n");
+        //conjuguer_modele2(all_tree, det);
+        //conjuguer_modele3(pro, all_tree, det);
         printf("Do you want to continue ? \n\n0 - No\n1 - Yes\n\n");
         stop = ask_int(0, 1);
         printf("\n\n------------------------------------------------------------------------------\n\n");
@@ -50,6 +56,8 @@ int main(){
 
     free(all_tree);
     free(test);
+    free(det);
+    free(pro);
 
     return 0;
 }

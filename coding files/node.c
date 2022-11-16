@@ -8,21 +8,19 @@
 // creation de formes flechies en dur
 
 p_pronoms create_pronoms(){
-    // Fonction qui permet de créer un pronom et lui alloue de la mémoire
-    p_pronoms nouv_pronom=(p_pronoms) malloc((sizeof (struct pronoms)));
-    for(int i =0;i<6;i++) {
-        nouv_pronom->pronoms[i] = (p_pronoms) malloc((sizeof(struct pronoms)));
-        nouv_pronom->pronoms[i] = NULL;
-    }
+// Fonction qui permet de créer un pronom et lui alloue de la mémoire
+    printf("CREATE AVANT \n");
+    p_pronoms nouv_pronom;
+    printf("CREATE");
     return nouv_pronom;
 }
 
 p_determinants create_determinants(){
     // Fonction qui permet de créer un déterminant et lui alloue de la mémoire
-    p_determinants det=(p_determinants) malloc((sizeof (struct determinants)));
+    p_determinants det = (p_determinants) malloc((sizeof (struct determinants)));
     for(int i =0;i<=2;i++){
         for (int j=0;j<=3;j++){
-            det->determinants[i][j] = (p_determinants) malloc((sizeof (struct determinants)));
+            det->determinants[i][j] = (p_mot) malloc((sizeof (word)));
             det->determinants[i][j] = NULL;
         }
     }
@@ -41,48 +39,46 @@ p_determinants create_determinants(){
 
 // Création et remplissage de la structure contenant les déterminants
 
-p_determinants create_conjugaison_determinants(){
-    p_mot mot1= (p_mot)malloc(sizeof(word));
-    strcpy(mot1->lyric,"le");
-    p_mot mot2=(p_mot)malloc(sizeof(word));
-    strcpy(mot2->lyric,"la");
-    p_mot mot3=(p_mot)malloc(sizeof(word));
-    strcpy(mot3->lyric,"les");
-    p_mot mot4=(p_mot)malloc(sizeof(word));
-    strcpy(mot4->lyric,"un");
-    p_mot mot5=(p_mot)malloc(sizeof(word));
-    strcpy(mot5->lyric,"une");
-    p_mot mot6=(p_mot)malloc(sizeof(word));
-    strcpy(mot6->lyric,"des");
+word** create_conjugaison_determinants(){
 
-    p_determinants det = create_determinants();
-    det->determinants[0][0]=mot1 , det->determinants[0][1]=mot2,det->determinants[0][2]=mot3,
-    det->determinants[1][0]=mot4, det->determinants[1][1]=mot5, det->determinants[1][2]=mot6;
+    word **arr = (word**)malloc(6*sizeof (word*));
+    for(int i = 0 ; i<3 ; i++ ){
+        arr[i] = malloc(sizeof(struct mot));
+    }
 
-    return det;
+    strcpy(arr[0][0].lyric,"le");
+    strcpy(arr[0][1].lyric,"la");
+    strcpy(arr[0][2].lyric,"les");
+    strcpy(arr[1][0].lyric,"un");
+    strcpy(arr[1][1].lyric,"une");
+    strcpy(arr[1][2].lyric,"des");
+
+    //det->determinants[0][0]=mot1 , det->determinants[0][1]=mot2,det->determinants[0][2]=mot3,
+    //det->determinants[1][0]=mot4, det->determinants[1][1]=mot5, det->determinants[1][2]=mot6;
+
+    return arr;
 
 }
 
 // création et remplissage de la structure contenant les pronoms personnels
-p_pronoms create_conjugaison_pronoms(){
-    p_mot mot1=(p_mot)malloc(sizeof(word));
-    strcpy(mot1->lyric,"je");
-    p_mot mot2=(p_mot)malloc(sizeof(word));
-    strcpy(mot2->lyric,"tu");
-    p_mot mot3=(p_mot)malloc(sizeof(word));
-    strcpy(mot3->lyric,"il");
-    p_mot mot4=(p_mot)malloc(sizeof(word));
-    strcpy(mot4->lyric,"nous");
-    p_mot mot5=(p_mot)malloc(sizeof(word));
-    strcpy(mot5->lyric,"vous");
-    p_mot mot6=(p_mot)malloc(sizeof(word));
-    strcpy(mot6->lyric,"ils");
+word* create_conjugaison_pronoms(){
+    printf("salut");
+    word *arr = (word*)malloc(6*sizeof (word));
 
-    p_pronoms pronom = create_pronoms();
-    pronom->pronoms[0]=mot1 , pronom->pronoms[1]=mot2,pronom->pronoms[2]=mot3,
-    pronom->pronoms[3]=mot4, pronom->pronoms[4]=mot5, pronom->pronoms[5]=mot6;
+    strcpy(arr[0].lyric,"je");
 
-    return pronom;
+    strcpy(arr[1].lyric,"tu");
+
+    strcpy(arr[2].lyric,"il");
+
+    strcpy(arr[3].lyric,"nous");
+
+    strcpy(arr[4].lyric,"vous");
+
+    strcpy(arr[5].lyric,"ils");
+
+    printf("et là");
+    return arr;
 
 }
 
@@ -108,7 +104,7 @@ int ask_int(int bot, int top){
 }
 
 l_tree generate_tree() {
-    l_tree all_tree;
+    l_tree all_tree = (l_tree) malloc(sizeof(struct list_tree));
     all_tree->name_tree = generate_void_tree();
     all_tree->adj_tree = generate_void_tree();
     all_tree->verbe_tree = generate_void_tree();
@@ -297,28 +293,30 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
     if(mot.lyric[index_mot] == '\0'){    //Si le mot arrive à la fin :
         strcpy(node->mot.lyric,mot.lyric); // Mettre le mot en entier dans la structure de la node
 
-        if(strstr(typo.lyric,":Nom")) {
-            if (strstr(typo.lyric, ":Mas") != 0) {
+        if(strstr(typo.lyric,"Nom:") != NULL) {
+            //printf("typo : %s",typo.lyric);
+            if (strstr(typo.lyric, ":Mas") != NULL) {
                 node->gender = 0; // HOMME
 
             }
-            else if (strstr(typo.lyric, ":Fem") != 0) {
+            else if (strstr(typo.lyric, ":Fem") != NULL) {
                 node->gender = 1; // FEMME
             }
             else{
                 node->gender = 2; // NON BINAIRE
             }
-            if (strstr(typo.lyric, "+SG") != 0) {
-                printf("Mot au singulier de la FF : %s \n", fleche);
-                node->nom_flechies[0] = &fleche;
-            } else {
-                printf("Mot au pluriel de la FF : %s \n", fleche);
-                node->nom_flechies[1] = &fleche;
+            if (strstr(typo.lyric, "+SG") != NULL) {
+                //printf("Mot au singulier de la FF : %s \n", fleche);
+                strcpy(node->nom_flechies[0]->lyric,fleche.lyric);
+            }
+            else if (strstr(typo.lyric, "+PL") != NULL)  {
+                //printf("Mot au pluriel de la FF : %s infinitif : %s \n", fleche,mot.lyric);
+                strcpy(node->nom_flechies[1]->lyric,fleche.lyric);
             }
         }
-        else if(strstr(typo.lyric,":Adj")) {
-            if (strstr(typo.lyric, ":Mas") != 0 || strstr(typo.lyric, ":InvGen") != 0 ) {
-                if (strstr(typo.lyric, "+SG") != 0) {
+        else if(strstr(typo.lyric,"Adj") != NULL) {
+            if (strstr(typo.lyric, ":Mas") != NULL || strstr(typo.lyric, ":InvGen") != NULL ) {
+                if (strstr(typo.lyric, "+SG") != NULL) {
                     strcpy(node->adjective_flechies[0][0]->lyric,fleche.lyric); //Mas+SG
                 }
                 else{
@@ -326,8 +324,9 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
                 }
 
             }
-            else if (strstr(typo.lyric, ":Fem") != 0 || strstr(typo.lyric, ":InvGen") != 0 ) {
-                if (strstr(typo.lyric, "+SG") != 0) {
+            if (strstr(typo.lyric, ":Fem") != NULL || strstr(typo.lyric, ":InvGen") != NULL ) {
+
+                if (strstr(typo.lyric, "+SG") != NULL) {
                     strcpy(node->adjective_flechies[0][1]->lyric,fleche.lyric); //Fem+SG
 
                 }
@@ -339,50 +338,56 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
             }
 
         }
-        else if(strstr(typo.lyric,"Ver:")) {
+        else if(strstr(typo.lyric,"Ver") != NULL) {
             //printf("ça passe ici \n");
             //printf("Liste typo de 0 : %s \n",liste_typo[0].lyric);
             int i = 0;
-            while (strcmp(liste_typo[i].lyric,"none") != 0) {
+            while (strstr(liste_typo[i].lyric,"none") == NULL) {
                 //printf("Liste typo : %s",liste_typo[i].lyric);
                 int temps;
-                if (strstr(liste_typo[i].lyric, ":Inf")) { temps = 0; }
-                else if (strstr(liste_typo[i].lyric, ":IPSim")) { temps = 1; }
-                else if (strstr(liste_typo[i].lyric, ":IImp")) { temps = 2; }
-                else if (strstr(liste_typo[i].lyric, ":IPre")) { temps = 3; }
-                else if (strstr(liste_typo[i].lyric, ":PPas")) { temps = 4; }
-                else if (strstr(liste_typo[i].lyric, ":IFut")) { temps = 5; }
-                else if (strstr(liste_typo[i].lyric, ":CPre")) { temps = 6; }
-                else if (strstr(liste_typo[i].lyric, ":PPre")) { temps = 7; }
-                else if (strstr(liste_typo[i].lyric, "SImp")) { temps = 8; }
-                else if (strstr(liste_typo[i].lyric, ":SPre")) { temps = 9; }
-                else if (strstr(liste_typo[i].lyric, ":Imp")) { temps = 10; }
+                if (strstr(liste_typo[i].lyric, "Inf") != NULL) {}
+                if (strstr(liste_typo[i].lyric, "IPSim") != NULL) { temps = 1; }
+                if (strstr(liste_typo[i].lyric, "IImp") != NULL) { temps = 2; }
+                if (strstr(liste_typo[i].lyric, "IPre") != NULL) { temps = 3; }
+                if (strstr(liste_typo[i].lyric, "PPas") != NULL) {}
+                if (strstr(liste_typo[i].lyric, "IFut") != NULL) { temps = 5; }
+                if (strstr(liste_typo[i].lyric, "CPre") != NULL) { temps = 6; }
+                if (strstr(liste_typo[i].lyric, "PPre") != NULL) { temps = 7; }
+                if (strstr(liste_typo[i].lyric, "SImp") != NULL) { temps = 8; }
+                if (strstr(liste_typo[i].lyric, "SPre") != NULL) { temps = 9; }
+                if (strstr(liste_typo[i].lyric, "Imp") != NULL) { temps = 10; }
+                //printf("temps %d \n",temps);
 
-                if (strstr(liste_typo[i].lyric, "+SG") != 0) {
-                    if (strstr(liste_typo[i].lyric, "+P1") != 0) {
-                        node->verbe_flechie[temps][0];
-                    } else if (strstr(liste_typo[i].lyric, "+P2") != 0) {
-                        node->verbe_flechie[temps][1];
-                    } else if (strstr(liste_typo[i].lyric, "+P3") != 0) {
-                        node->verbe_flechie[temps][2];
-                    } else {
-                        if (strstr(liste_typo[i].lyric, "+P1") != 0) {
-                            node->verbe_flechie[temps][3];
-                        } else if (strstr(liste_typo[i].lyric, "+P2") != 0) {
-                            node->verbe_flechie[temps][4];
-                        } else if (strstr(liste_typo[i].lyric, "+P3") != 0) {
-                            node->verbe_flechie[temps][5];
+                if (strstr(liste_typo[i].lyric, "+SG") != NULL) {
+                    if (strstr(liste_typo[i].lyric, "+P1") != NULL) {
+                        strcpy(node->verbe_flechie[temps][0]->lyric,fleche.lyric);
+                    } else if (strstr(liste_typo[i].lyric, "+P2") != NULL) {
+                        strcpy(node->verbe_flechie[temps][1]->lyric,fleche.lyric);
+                    } else if (strstr(liste_typo[i].lyric, "+P3") != NULL) {
+                        strcpy(node->verbe_flechie[temps][2]->lyric,fleche.lyric);
+                    }
+                }
+                if (strstr(liste_typo[i].lyric, "+PL") != NULL) {
+                    if (strstr(liste_typo[i].lyric, "+P1") != NULL) {
+                        strcpy(node->verbe_flechie[temps][3]->lyric,fleche.lyric);
+                        }
+                    if (strstr(liste_typo[i].lyric, "+P2") != NULL) {
+                        strcpy(node->verbe_flechie[temps][4]->lyric,fleche.lyric);
+                     }
+                    if (strstr(liste_typo[i].lyric, "+P3") != NULL) {
+                         //printf("Mot au pluriel de la FF : %s \n", fleche.lyric);
+                         strcpy(node->verbe_flechie[temps][5]->lyric,fleche.lyric);
                         }
 
                     }
 
-                }
+
 
             i++;
             }
             //printf("-------FIN---------\n");
-            return node;
         }
+        return node;
     }
     else{
 
@@ -396,9 +401,11 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
         }
         return chain_add(node->children[index_node],mot,index_mot+1, typo,fleche,liste_typo);
     }
+    return NULL;
 }
 //
 void fill_flechies(p_node node){
+    strcpy(node->mot.lyric,"none");
     for (int i = 0;i <= 1;i++){
         strcpy(node->nom_flechies[i]->lyric,"none");
         for (int j = 0;j <= 1;j++){
@@ -448,6 +455,9 @@ word concatenate_mot(char line[],int x){  //recupere le mot à l'infinitif
 //partie julien :
 //
 p_node return_mot_node(p_node node , word type){
+    if (node->children[0] == NULL){
+        return node;
+    }
     //Return le node d'un mot aléatoirement à partir du node donné
     if(isempty(node,type) != 0){     //Le mot contient-il des formes fléchie ?
         int random = (rand() % node->sons); // determine l'index du child si le mot ne s'arrete pas la
@@ -468,6 +478,7 @@ p_node return_mot_node(p_node node , word type){
             return return_mot_node(node->children[random],type);
         }
         else{
+
             return node;     // S'il n'a pas de sons on arrete le mot
         }
     }

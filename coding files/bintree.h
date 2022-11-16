@@ -16,9 +16,10 @@ struct list_tree{
     t_tree adv_tree;
 };typedef struct list_tree* l_tree;
 p_node return_mot_tree(t_tree); //Return un node qui constitue une fin de mot a partir du tree de maniere aleatoire
-void conjuguer_modele1(l_tree all_tree, p_determinants det);
-void conjuguer_modele2(l_tree all_tree, p_determinants det);
-void conjuguer_modele3(p_pronoms pronom, l_tree all_tree, p_determinants det);
+void conjuguer_modele1(l_tree all_tree, word** det);
+int monkey(word*);
+void conjuguer_modele2(l_tree all_tree, word** det);
+void conjuguer_modele3(word*, l_tree all_tree, word** det);
 t_tree generate_void_tree();
 l_tree generate_tree();
 void sample(t_tree,int);

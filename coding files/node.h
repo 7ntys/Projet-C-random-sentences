@@ -48,8 +48,8 @@ p_node createNode();
 p_mot create_mot();
 p_determinants create_determinants();
 p_pronoms create_pronoms();
-p_determinants create_conjugaison_determinants();
-p_pronoms create_conjugaison_pronoms();
+word** create_conjugaison_determinants();
+word* create_conjugaison_pronoms();
 void fill_flechies(p_node node);
 
 int ask_int(int bot, int top);
