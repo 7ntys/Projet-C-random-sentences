@@ -125,10 +125,19 @@ void conjuguer_modele1(l_tree all_tree, word** det){
     else{
         index = 5;
     }
-    int c = rand()%11; // nombre aléatoire permettant de choisir un temps aléatoire pour le verbe à conjuguer
-    while (strcmp(verbe->verbe_flechie[c][index]->lyric,"none") == 0){
-        printf("\nverbe = %s %s %s \n",verbe->mot.lyric ,verbe->verbe_flechie[c][2], verbe->verbe_flechie[c][5]->lyric);
-        verbe = return_mot_tree(all_tree->verbe_tree);
+    int c = 0;
+    int cpt=0;// nombre aléatoire permettant de choisir un temps aléatoire pour le verbe à conjuguer
+    while (cpt == 0){
+        for(int i=0;i<9;i++){
+            if(strcmp(verbe->verbe_flechie[i][index]->lyric,"none") != 0){
+                //printf("%s \n",verbe->verbe_flechie[i][index]);
+                cpt=1;
+                c=i;
+            }
+        }
+        if(cpt==0){
+            verbe = return_mot_tree(all_tree->verbe_tree);
+        }
     }
     if (a==1){
         printf("%s ", verbe->verbe_flechie[c][5]); // conjugaison du verbe choisi

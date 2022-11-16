@@ -346,16 +346,16 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
                 //printf("Liste typo : %s",liste_typo[i].lyric);
                 int temps;
                 if (strstr(liste_typo[i].lyric, "Inf") != NULL) {}
-                if (strstr(liste_typo[i].lyric, "IPSim") != NULL) { temps = 1; }
-                if (strstr(liste_typo[i].lyric, "IImp") != NULL) { temps = 2; }
-                if (strstr(liste_typo[i].lyric, "IPre") != NULL) { temps = 3; }
+                if (strstr(liste_typo[i].lyric, "IPSim") != NULL) { temps = 0; }
+                if (strstr(liste_typo[i].lyric, "IImp") != NULL) { temps = 1; }
+                if (strstr(liste_typo[i].lyric, "IPre") != NULL) { temps = 2; }
                 if (strstr(liste_typo[i].lyric, "PPas") != NULL) {}
-                if (strstr(liste_typo[i].lyric, "IFut") != NULL) { temps = 5; }
-                if (strstr(liste_typo[i].lyric, "CPre") != NULL) { temps = 6; }
-                if (strstr(liste_typo[i].lyric, "PPre") != NULL) { temps = 7; }
-                if (strstr(liste_typo[i].lyric, "SImp") != NULL) { temps = 8; }
-                if (strstr(liste_typo[i].lyric, "SPre") != NULL) { temps = 9; }
-                if (strstr(liste_typo[i].lyric, "Imp") != NULL) { temps = 10; }
+                if (strstr(liste_typo[i].lyric, "IFut") != NULL) { temps = 3; }
+                if (strstr(liste_typo[i].lyric, "CPre") != NULL) { temps = 4; }
+                if (strstr(liste_typo[i].lyric, "PPre") != NULL) { temps = 5; }
+                if (strstr(liste_typo[i].lyric, "SImp") != NULL) { temps = 6; }
+                if (strstr(liste_typo[i].lyric, "SPre") != NULL) { temps = 7; }
+                if (strstr(liste_typo[i].lyric, "Imp") != NULL) { temps = 8; }
                 //printf("temps %d \n",temps);
 
                 if (strstr(liste_typo[i].lyric, "+SG") != NULL) {
@@ -413,7 +413,7 @@ void fill_flechies(p_node node){
             strcpy(node->adjective_flechies[i][j]->lyric,"none");
         }
     }
-    for (int i = 0;i <= 10;i++){
+    for (int i = 0;i <= 8;i++){
         for (int j = 0;j <= 5;j++){
             strcpy(node->verbe_flechie[i][j]->lyric,"none");
         }
@@ -489,7 +489,7 @@ int isempty(p_node node , word type){
     //ce qui veux dire que l'on pourrait arreter le mot ici. Verifier pour chaque type
     //partie verb : return 1
     if(strcmp(type.lyric,"verbe") == 0){
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 8; i++) {
             for(int j = 0 ; j<=5;j++){
                 if (strcmp(node->verbe_flechie[i][j]->lyric,"none")!=0) {     //Le premier caractere est le caractere d'arret.
                     return 1;   //S'il ya une forme flechie return 1 : le verbe peut etre finit
