@@ -2,7 +2,7 @@
 // Created by Julien Le ber on 21/10/2022.
 //
 #include "bintree.h"
-
+#define MAX_LINE_LENGTH 100
 int monkey(word* mot){
     if (strcmp(mot->lyric,"none") != 0){
         return 1;
@@ -319,4 +319,40 @@ void conjuguer_modele3(word* pronom, l_tree all_tree, word** det){
     }
     printf("%s ", adjectif->adjective_flechies[(nom1->gender)][c]);
 
+}
+void search_word(word word_searched,t_tree mytree){
+
+    printf("%s",word_searched.lyric);
+    FILE *dico = fopen("dico.txt", "r");
+    char line[MAX_LINE_LENGTH];
+    if (dico == NULL) {
+        return;
+    }
+    fgets(line, MAX_LINE_LENGTH, dico);
+    int cpt = 0;
+    word test;
+    word inf;
+    word forme;
+    int found=0;
+    while (cpt <= 30000){
+        test = concatenate_mot(line,0);
+        printf("%s",test.lyric);
+        if (strcmp(test.lyric,word_searched.lyric) == 0) {
+            found=1;
+            inf = concatenate_mot(line,1);
+            forme = concatenate_mot(line,2);
+            break;
+        }
+        fgets(line, MAX_LINE_LENGTH, dico);
+        cpt++;
+    }
+    if(found==0){
+        printf("The word wasn't find in the dictionnary\n");
+    }
+    else{
+        printf("We search %s/%s/%s\n",test.lyric,inf.lyric,forme.lyric);
+        p_node node = (p_node) malloc(sizeof (struct node));
+        node = searching(mytree->root,inf,0);
+    }
+    fclose(dico);
 }

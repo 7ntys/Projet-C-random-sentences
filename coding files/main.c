@@ -31,7 +31,7 @@ int main(){
         int option;
 
         printf("Choississez un modele de conjugaison parmi les suivants : \n\nModele numero 1 : nom - adjectif - verbe - nom\n\nModele numero2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModele numero 3 : verbe - adverbe - nom - adjectif \n\n");
-        option = ask_int(1, 3);
+        option = ask_int(1, 4);
         printf("\n\n");
         switch (option) {
             case 1:conjuguer_modele1(all_tree, det);
@@ -40,6 +40,11 @@ int main(){
                 break;
             case 3: conjuguer_modele3(pro, all_tree, det);
                 break;
+            case 4:
+                printf("Entrez le mot que vous voulez ");
+                word searched_mot;
+                scanf(" %s",searched_mot.lyric);
+                search_word(searched_mot,all_tree->name_tree);
             default : printf("Ce choix n'existe pas.\n");
         }
         printf("\n\n------------------------------------------------------------------------------\n\n");

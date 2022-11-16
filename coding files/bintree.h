@@ -23,4 +23,5 @@ void conjuguer_modele3(word*, l_tree all_tree, word** det);
 t_tree generate_void_tree();
 l_tree generate_tree();
 void sample(t_tree,int);
+void search_word(word word_searched,t_tree mytree);
 #endif //PROJET_C_RANDOM_SENTENCES_BINTREE_H

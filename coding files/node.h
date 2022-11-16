@@ -68,4 +68,5 @@ word concatenate_mot(char line[],int x);
 int take_second_word(char line[]);
 int take_third_word(char line[]);
 word* multiple_typo(word typo);
+p_node searching(p_node node,word seached_mot,int index_mot);
 #endif //PROJET_C_RANDOM_SENTENCES_NODE_H
