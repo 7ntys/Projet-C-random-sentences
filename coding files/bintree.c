@@ -322,7 +322,7 @@ void conjuguer_modele3(word* pronom, l_tree all_tree, word** det){
 }
 void search_word(word word_searched,t_tree mytree){
 
-    printf("%s",word_searched.lyric);
+    printf("%s\n",word_searched.lyric);
     FILE *dico = fopen("dico.txt", "r");
     char line[MAX_LINE_LENGTH];
     if (dico == NULL) {
@@ -330,13 +330,13 @@ void search_word(word word_searched,t_tree mytree){
     }
     fgets(line, MAX_LINE_LENGTH, dico);
     int cpt = 0;
+
     word test;
     word inf;
     word forme;
     int found=0;
-    while (cpt <= 30000){
+    while (cpt <= 300000){
         test = concatenate_mot(line,0);
-        printf("%s",test.lyric);
         if (strcmp(test.lyric,word_searched.lyric) == 0) {
             found=1;
             inf = concatenate_mot(line,1);
@@ -347,10 +347,10 @@ void search_word(word word_searched,t_tree mytree){
         cpt++;
     }
     if(found==0){
-        printf("The word wasn't find in the dictionnary\n");
+        printf("\nThe word wasn't find in the dictionnary\n");
     }
     else{
-        printf("We search %s/%s/%s\n",test.lyric,inf.lyric,forme.lyric);
+        printf("\nWe search %s/%s/%s",test.lyric,inf.lyric,forme.lyric);
         p_node node = (p_node) malloc(sizeof (struct node));
         node = searching(mytree->root,inf,0);
     }

@@ -44,6 +44,8 @@ struct node{
     word* adverbe_flechie;
 };typedef struct node* p_node;
 
+void intro();
+void sleep(int);
 p_node createNode();
 p_mot create_mot();
 p_determinants create_determinants();

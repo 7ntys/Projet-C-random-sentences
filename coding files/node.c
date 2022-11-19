@@ -7,6 +7,27 @@
 #define MAX_LINE_LENGTH 100
 // creation de formes flechies en dur
 
+void intro() {
+    printf("\n\n\n");
+    printf("Welcome to the Random Sentence Generator created by the Aladdi team (Julien & Mathieu & Fares)"
+           "\n Thank you for using this program and we hope you'll like it"
+           "\n                 ©Aladdi-Team 2022\n");
+    printf("-------------------------------------------------------------------------------------");
+    sleep(3);
+    printf("\n\n\n\n\n\n\n");
+}
+void sleep(int seconds) {
+    /* Initialize */
+    time_t start_time = 0;
+    time_t current_time = 0;
+
+    /* Pause the program for x seconds */
+    start_time = time(NULL);
+    while(current_time-start_time+1 <= seconds) {
+        current_time = time(NULL);
+    }
+}
+
 p_pronoms create_pronoms(){
 // Fonction qui permet de créer un pronom et lui alloue de la mémoire
     printf("CREATE AVANT \n");
@@ -90,8 +111,10 @@ int ask_int(int bot, int top){
     {
         int var;
         int entry, c;
+        printf("------------------------------------------------------------------------------\n");
         do {
             do{
+
                 printf("Donnez un nombre entre %d et %d : ",bot,top);
                 entry= scanf("%d", &var);
                 while ((c = getchar()) != '\n' && c != EOF);
@@ -108,6 +131,7 @@ l_tree generate_tree() {
     all_tree->verbe_tree = generate_void_tree();
     all_tree->adv_tree = generate_void_tree();
     FILE *dico = fopen("dico.txt", "r");
+
     char line[MAX_LINE_LENGTH];
     if (dico == NULL) {
         return all_tree;
@@ -340,7 +364,7 @@ p_node chain_add(p_node node, word mot,int index_mot, word typo, word fleche, wo
             //printf("ça passe ici \n");
             //printf("Liste typo de 0 : %s \n",liste_typo[0].lyric);
             int i = 0;
-            while (strstr(liste_typo[i].lyric,"none") == NULL) {
+            while (strcmp(liste_typo[i].lyric,"none") != 0) {
                 //printf("Liste typo : %s",liste_typo[i].lyric);
                 int temps;
                 if (strstr(liste_typo[i].lyric, "Inf") != NULL) {}
@@ -462,7 +486,7 @@ p_node return_mot_node(p_node node , word type){
     //Return le node d'un mot aléatoirement à partir du node donné
     if(isempty(node,type) != 0){     //Le mot contient-il des formes fléchie ?
         int random = (rand() % node->sons); // determine l'index du child si le mot ne s'arrete pas la
-        int stop = rand() % 3;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
+        int stop = rand() % 2;  // Coefficient pour decider si le mot s'arrete la ou non (à changer pour ameliorer le random)
         if(stop ==0){
             return node;    //le mot s'arrete la
         }

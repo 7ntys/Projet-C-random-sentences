@@ -6,8 +6,10 @@
 #include "node.h"
 
 
+
 int main(){
     srand(time(NULL));
+    intro();
     l_tree all_tree = (l_tree)malloc(sizeof (struct list_tree));
     all_tree = generate_tree();
     strcpy(all_tree->adj_tree->type.lyric,"adjectif");
@@ -30,7 +32,7 @@ int main(){
     do{
         int option;
 
-        printf("Choississez un modele de conjugaison parmi les suivants : \n\nModele numero 1 : nom - adjectif - verbe - nom\n\nModele numero2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModele numero 3 : verbe - adverbe - nom - adjectif \n\n");
+        printf("Choississez un modele de conjugaison parmi les suivants : \n\nModele numero 1 : nom - adjectif - verbe - nom\n\nModele numero2 : nom - 'qui' - verbe - verbe - nom - adjectif\n\nModele numero 3 : verbe - adverbe - nom - adjectif \n\nOption numero 4 : Chercher un mot dans le tree\n\n");
         option = ask_int(1, 4);
         printf("\n\n");
         switch (option) {
@@ -41,10 +43,11 @@ int main(){
             case 3: conjuguer_modele3(pro, all_tree, det);
                 break;
             case 4:
-                printf("Entrez le mot que vous voulez ");
+                printf("Entrez le mot que vous voulez : ");
                 word searched_mot;
-                scanf(" %s",searched_mot.lyric);
+                scanf("%s",searched_mot.lyric);
                 search_word(searched_mot,all_tree->name_tree);
+                break;
             default : printf("Ce choix n'existe pas.\n");
         }
         printf("\n\n------------------------------------------------------------------------------\n\n");
