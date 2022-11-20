@@ -130,7 +130,7 @@ l_tree generate_tree() {
     all_tree->adj_tree = generate_void_tree();
     all_tree->verbe_tree = generate_void_tree();
     all_tree->adv_tree = generate_void_tree();
-    FILE *dico = fopen("dico.txt", "r");
+    FILE *dico = fopen("../text-files/dico.txt", "r");
 
     char line[MAX_LINE_LENGTH];
     if (dico == NULL) {

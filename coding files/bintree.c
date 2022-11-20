@@ -323,7 +323,7 @@ void conjuguer_modele3(word* pronom, l_tree all_tree, word** det){
 void search_word(word word_searched,t_tree mytree){
 
     printf("%s\n",word_searched.lyric);
-    FILE *dico = fopen("dico.txt", "r");
+    FILE *dico = fopen("../text-files/dico.txt", "r");
     char line[MAX_LINE_LENGTH];
     if (dico == NULL) {
         return;
